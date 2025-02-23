@@ -1,0 +1,23 @@
+﻿<div class="row justify-content-center">
+
+    @foreach (var product in Model)
+    {
+        <div class="col-3 card shadow">
+            <img class="card-img-top" src="@product.ImagePath">
+
+            <div class="card-body">
+                <a style="color:black" href="/product/index/@product.Id">
+                    <h5>@product.Name</h5>
+                </a>
+                <h5>@product.Cost руб</h5>
+                <a class="btn btn-dark" href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Домашнее задание</h1>
+    <h2>Создание списка товаров для онлайн магазина</h2>
+    <p><a href="https://stepik.org/lesson/522438/step/2?unit=680171">Ссылка на задание</a></p>
+</div>

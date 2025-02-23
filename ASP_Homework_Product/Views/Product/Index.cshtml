@@ -1,0 +1,15 @@
+﻿@Model Product
+
+<div class="row justify-content-center">
+        <div class="col-9">
+            <img class="card-img-top" src="@Model.ImagePath" />
+            <div class="сol-3">
+                <h5>@Model.Name</h5>
+                <h5>@Model.Description</h5>
+                <h5>@Model.Cost руб</h5>
+
+                <a class="btn btn-dark" href="/cart/add?productId=@Model.Id" role="button">Добавить в корзину</a>
+                <a class="btn btn-dark" href="/home/index" role="button">Вернуться к списку товаров</a>
+            </div>
+        </div>
+</div>

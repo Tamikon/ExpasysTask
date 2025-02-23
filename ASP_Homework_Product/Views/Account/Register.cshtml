@@ -1,0 +1,36 @@
+﻿@model ASP_Homework_Product.Areas.Admin.Models.Register
+
+
+<form method="post">
+    <div>
+        <h3>Регистрация</h3>
+    </div>
+
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="UserName"></label><br />
+            <input class="form-control" asp-for="UserName" autocomplete="username" />
+            <span class="text-danger" asp-validation-for="UserName"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Password"></label><br />
+            <input type="password" class="form-control" asp-for="Password" autocomplete="new-password" />
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="ConfirmPassword"></label><br />
+            <input type="password" class="form-control" asp-for="ConfirmPassword" autocomplete="new-password" />
+            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
+</form>
