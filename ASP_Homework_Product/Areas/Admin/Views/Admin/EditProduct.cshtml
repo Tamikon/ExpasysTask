@@ -1,0 +1,36 @@
+﻿@model Product
+
+<form method="post">
+	<h3>Редактирование продукта</h3>
+	<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+
+	<input type="hidden" name="Id" value="@Model?.Id" />
+
+	<div class="row">
+		<div class="col-6">
+			<label asp-for="Name"></label><br />
+			<input class="form-control" type="text" asp-for="Name" value="@Model?.Name"/>
+			<span class="text-danger" asp-validation-for="Name" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-6">
+			<label asp-for="Description"></label><br />
+			<input class="form-control" type="text" asp-for="Description" value="@Model?.Description" />
+			<span class="text-danger" asp-validation-for="Description" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-6">
+			<label asp-for="Cost"></label><br />
+			<input type="number" class="form-control" type="text" asp-for="Cost" value="@Model?.Cost" />
+			<span class="text-danger" asp-validation-for="Cost" />
+		</div>
+	</div>
+
+	<div>
+		<button type="submit" asp-controller="Admin" asp-action="EditProduct">Редактировать</button>
+	</div>
+</form>

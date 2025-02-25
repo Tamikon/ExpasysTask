@@ -11,10 +11,10 @@ namespace ASP_Homework_Product.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductList productList;
+        private readonly IProductRes productList;
         private readonly ICartsRes cartsRes;
 
-        public HomeController(IProductList productList, ICartsRes cartsRes)
+        public HomeController(IProductRes productList, ICartsRes cartsRes)
         {
             this.productList = productList;
             this.cartsRes = cartsRes;

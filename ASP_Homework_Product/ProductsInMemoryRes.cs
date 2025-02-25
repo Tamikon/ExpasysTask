@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ASP_Homework_Product.Models;
 
 namespace ASP_Homework_Product
 {
-    public class ProductsInMemoryList : IProductList
+    public class ProductsInMemoryRes : IProductRes
     {
-        private List<Product> listOfProducts = new List<Product>()
+        private List<Product> productsList = new List<Product>()
         {
           new Product("ASUS ROG Zephyrus Duo 16",
               "2560х1600, AMD Ryzen 9 7945HX 2.5 ГГц, NVIDIA GeForce RTX 4090",
@@ -21,13 +22,32 @@ namespace ASP_Homework_Product
               "/Images/image3.webp")
         };
 
+        public void Add(Product product)
+        {
+            product.ImagePath = "/Images/image1.webp";
+            productsList.Add(product);
+        }
+
+        public void Update(Product product)
+        {
+            var existingProduct = productsList.FirstOrDefault(x => x.Id == product.Id);
+            if (existingProduct == null)
+            {
+                return;
+            }
+
+            existingProduct.Name = product.Name;
+            existingProduct.Description = product.Description;
+            existingProduct.Cost = product.Cost;
+        }
+
         public List<Product> GetProducts()
         {
-            return listOfProducts;
+            return productsList;
         }
         public Product TryGetById(int id)
         {
-            foreach (var product in listOfProducts)
+            foreach (var product in productsList)
             {
                 if (product.Id == id)
                 {

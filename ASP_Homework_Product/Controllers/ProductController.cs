@@ -4,9 +4,9 @@ namespace ASP_Homework_Product.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductList productList;
+        private readonly IProductRes productList;
 
-        public ProductController(IProductList productList)
+        public ProductController(IProductRes productList)
         {
             this.productList = productList;
         }

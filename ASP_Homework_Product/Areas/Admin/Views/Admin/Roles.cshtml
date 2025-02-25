@@ -1,8 +1,35 @@
-﻿
+﻿@using ASP_Homework_Product.Areas.Admin.Models
+@model List<Role>
+
 <div class="row">
     @await Html.PartialAsync("AdminSideBar")
 
-    <div class="сol-9">
-        <h3>Список ролей</h3>
+    <div class="col-9">
+        <div class="row">
+            <h3>Список ролей</h3>
+        </div>
+        <a href="/admin/admin/addRole">Добавить новую роль</a>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Название</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].Name</td>
+                            <td><a href="/admin/admin/removeRole?roleName=@Model[i].Name">Удалить</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

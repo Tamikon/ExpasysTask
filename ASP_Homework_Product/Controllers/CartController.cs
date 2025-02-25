@@ -4,10 +4,10 @@ namespace ASP_Homework_Product.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductList productList;
+        private readonly IProductRes productList;
         private readonly ICartsRes cartsRes;
 
-        public CartController(IProductList productList, ICartsRes cartsRes)
+        public CartController(IProductRes productList, ICartsRes cartsRes)
         {
             this.productList = productList;
             this.cartsRes = cartsRes;

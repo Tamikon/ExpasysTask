@@ -24,6 +24,12 @@ namespace ASP_Homework_Product.Controllers
         [HttpPost]
         public IActionResult Buy(UserDeliveryInfo user)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", user);
+            }
+
             var existingCart = cartsRes.TryGetByUserId(Constants.UserId);
             var order = new Order
             {

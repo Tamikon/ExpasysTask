@@ -25,8 +25,9 @@ namespace ASP_Homework_Product
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IOrdersRes, OrdersInMemoryRes>();
-            services.AddSingleton<IProductList, ProductsInMemoryList>();
+            services.AddSingleton<IProductRes, ProductsInMemoryRes>();
             services.AddSingleton<ICartsRes, CartsInMemoryRes>();
+            services.AddSingleton<IRolesRes, RolesInMemoryRes>();
             services.AddControllersWithViews();
         }
 
