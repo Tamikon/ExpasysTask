@@ -1,0 +1,13 @@
+2025-02-27 17:38:12 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-27 17:38:12 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-27 17:38:12 [INF] Hosting environment: Development
+2025-02-27 17:38:12 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-27 17:38:12 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-27 17:38:12 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-27 17:38:12 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-27 17:38:12 [INF] Executing ViewResult, running view Index.
+2025-02-27 17:38:13 [INF] Executed ViewResult - view Index executed in 176.3862ms.
+2025-02-27 17:38:13 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 268.5797ms
+2025-02-27 17:38:13 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-27 17:38:13 [INF] HTTP GET / responded 200 in 355.5217 ms
+2025-02-27 17:38:13 [INF] Request finished in 521.9561ms 200 text/html; charset=utf-8

@@ -6,7 +6,7 @@ namespace ASP_Homework_Product.Models
 {
     public class Order
     {
-        public Guid Id {  get; set; }
+        public Guid Id { get; set; }
         public UserDeliveryInfo User { get; set; }
         public List<CartItem> Items { get; set; }
         public OrderStatus Status { get; set; }

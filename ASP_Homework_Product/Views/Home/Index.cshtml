@@ -1,5 +1,5 @@
 ﻿<div class="text-center">
-    <h2 class="display-4">Качественные ноутбуки по низкой цене</h2>
+    <h2 class="display-4">Ноутбуки</h2>
 </div>
 
 <div class="row justify-content-center">
@@ -10,11 +10,19 @@
             <img class="card-img-top" src="@product.ImagePath">
 
             <div class="card-body">
-                <a style="color:black" href="/product/index/@product.Id">
+                <a style="color:black"
+                asp-area=""
+                asp-controller="Product"
+                asp-action="Index"
+                asp-route-id="@product.Id">
                     <h5>@product.Name</h5>
                 </a>
                 <h5>@product.Cost руб</h5>
-                <a class="btn btn-dark" href="/cart/add?productId=@product.Id" role="button">Добавить в корзину</a>
+                <a class="btn btn-dark"
+                asp-area=""
+                asp-controller="Cart"
+                asp-action="Add"
+                asp-route-productId="@product.Id">Добавить в корзину</a>
             </div>
         </div>
     }
