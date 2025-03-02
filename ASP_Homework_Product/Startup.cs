@@ -28,6 +28,7 @@ namespace ASP_Homework_Product
             services.AddSingleton<IProductRes, ProductsInMemoryRes>();
             services.AddSingleton<ICartsRes, CartsInMemoryRes>();
             services.AddSingleton<IRolesRes, RolesInMemoryRes>();
+            services.AddSingleton<IUsersManager, UsersManager>();
             services.AddControllersWithViews();
         }
 

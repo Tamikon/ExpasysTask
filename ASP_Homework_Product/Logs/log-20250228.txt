@@ -2541,3 +2541,546 @@
 2025-02-28 17:17:56 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/product/delete?productId=2  
 2025-02-28 17:17:56 [INF] HTTP GET /admin/product/delete responded 404 in 0.1099 ms
 2025-02-28 17:17:56 [INF] Request finished in 2.4806ms 404 
+2025-02-28 17:40:07 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 17:40:07 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 17:40:07 [INF] Hosting environment: Development
+2025-02-28 17:40:07 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 17:40:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 17:40:07 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:07 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 17:40:07 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:07 [INF] Executed ViewResult - view Index executed in 135.0453ms.
+2025-02-28 17:40:07 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 193.6835ms
+2025-02-28 17:40:07 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:07 [INF] HTTP GET / responded 200 in 251.4827 ms
+2025-02-28 17:40:07 [INF] Request finished in 358.3919ms 200 text/html; charset=utf-8
+2025-02-28 17:40:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:07 [INF] Request finished in 3.012ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:07 [INF] Request finished in 40.9735ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Order  
+2025-02-28 17:40:08 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:08 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 17:40:08 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:08 [INF] Executed ViewResult - view Index executed in 9.2344ms.
+2025-02-28 17:40:08 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 10.2337ms
+2025-02-28 17:40:08 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:08 [INF] HTTP GET /Admin/Order responded 200 in 15.1000 ms
+2025-02-28 17:40:08 [INF] Request finished in 24.0984ms 200 text/html; charset=utf-8
+2025-02-28 17:40:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:08 [INF] Request finished in 0.3042ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:08 [INF] Request finished in 17.525ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/user  
+2025-02-28 17:40:09 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:09 [INF] Route matched with {area = "Admin", action = "Index", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.UserController (ASP_Homework_Product).
+2025-02-28 17:40:09 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:09 [INF] Executed ViewResult - view Index executed in 5.8331ms.
+2025-02-28 17:40:09 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product) in 6.5381ms
+2025-02-28 17:40:09 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:09 [INF] HTTP GET /admin/user responded 200 in 10.1857 ms
+2025-02-28 17:40:09 [INF] Request finished in 13.56ms 200 text/html; charset=utf-8
+2025-02-28 17:40:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:09 [INF] Request finished in 1.0664ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:09 [INF] Request finished in 8.7214ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:10 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/role  
+2025-02-28 17:40:10 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:10 [INF] Route matched with {area = "Admin", action = "Index", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:40:10 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:10 [INF] Executed ViewResult - view Index executed in 6.9193ms.
+2025-02-28 17:40:10 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product) in 8.6129ms
+2025-02-28 17:40:10 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:10 [INF] HTTP GET /admin/role responded 200 in 13.0430 ms
+2025-02-28 17:40:10 [INF] Request finished in 17.6575ms 200 text/html; charset=utf-8
+2025-02-28 17:40:10 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:10 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:10 [INF] Request finished in 0.3223ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:10 [INF] Request finished in 5.116ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/role/add  
+2025-02-28 17:40:11 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:40:11 [INF] Route matched with {area = "Admin", action = "Add", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:40:11 [INF] Executing ViewResult, running view Add.
+2025-02-28 17:40:11 [INF] Executed ViewResult - view Add executed in 26.1716ms.
+2025-02-28 17:40:11 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product) in 26.5993ms
+2025-02-28 17:40:11 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:40:11 [INF] HTTP GET /admin/role/add responded 200 in 29.5696 ms
+2025-02-28 17:40:11 [INF] Request finished in 33.6366ms 200 text/html; charset=utf-8
+2025-02-28 17:40:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:11 [INF] Request finished in 0.4297ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:11 [INF] Request finished in 12.1304ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:13 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Admin/Role/Add application/x-www-form-urlencoded 198
+2025-02-28 17:40:13 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:40:13 [INF] Route matched with {area = "Admin", action = "Add", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add(ASP_Homework_Product.Areas.Admin.Models.Role) on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:40:13 [INF] Executing RedirectResult, redirecting to /Admin/Role.
+2025-02-28 17:40:13 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product) in 27.6981ms
+2025-02-28 17:40:13 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:40:13 [INF] HTTP POST /Admin/Role/Add responded 302 in 38.4738 ms
+2025-02-28 17:40:13 [INF] Request finished in 44.6778ms 302 
+2025-02-28 17:40:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Role  
+2025-02-28 17:40:13 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:13 [INF] Route matched with {area = "Admin", action = "Index", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:40:13 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:13 [INF] Executed ViewResult - view Index executed in 1.6675ms.
+2025-02-28 17:40:13 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product) in 1.9853ms
+2025-02-28 17:40:13 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:13 [INF] HTTP GET /Admin/Role responded 200 in 2.6450 ms
+2025-02-28 17:40:13 [INF] Request finished in 5.1433ms 200 text/html; charset=utf-8
+2025-02-28 17:40:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:13 [INF] Request finished in 0.3845ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:13 [INF] Request finished in 6.1787ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/product  
+2025-02-28 17:40:14 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:14 [INF] Route matched with {area = "Admin", action = "Index", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.ProductController (ASP_Homework_Product).
+2025-02-28 17:40:14 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:14 [INF] Executed ViewResult - view Index executed in 10.1653ms.
+2025-02-28 17:40:14 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product) in 10.8992ms
+2025-02-28 17:40:14 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:14 [INF] HTTP GET /admin/product responded 200 in 13.7090 ms
+2025-02-28 17:40:14 [INF] Request finished in 18.0129ms 200 text/html; charset=utf-8
+2025-02-28 17:40:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:14 [INF] Request finished in 0.6778ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:14 [INF] Request finished in 7.2412ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/role  
+2025-02-28 17:40:15 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:15 [INF] Route matched with {area = "Admin", action = "Index", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:40:15 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:15 [INF] Executed ViewResult - view Index executed in 4.9143ms.
+2025-02-28 17:40:15 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product) in 5.3395ms
+2025-02-28 17:40:15 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:15 [INF] HTTP GET /admin/role responded 200 in 6.4679 ms
+2025-02-28 17:40:15 [INF] Request finished in 9.3709ms 200 text/html; charset=utf-8
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:15 [INF] Request finished in 0.5013ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:15 [INF] Request finished in 5.7363ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/user  
+2025-02-28 17:40:15 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:15 [INF] Route matched with {area = "Admin", action = "Index", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.UserController (ASP_Homework_Product).
+2025-02-28 17:40:15 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:40:15 [INF] Executed ViewResult - view Index executed in 2.1918ms.
+2025-02-28 17:40:15 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product) in 2.4689ms
+2025-02-28 17:40:15 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:40:15 [INF] HTTP GET /admin/user responded 200 in 2.9736 ms
+2025-02-28 17:40:15 [INF] Request finished in 5.7053ms 200 text/html; charset=utf-8
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:40:15 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:40:15 [INF] Request finished in 0.3359ms 200 application/javascript; charset=utf-8
+2025-02-28 17:40:15 [INF] Request finished in 5.6915ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:43:55 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 17:43:55 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 17:43:55 [INF] Hosting environment: Development
+2025-02-28 17:43:55 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 17:43:55 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 17:43:55 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 17:43:55 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 17:43:55 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:43:56 [INF] Executed ViewResult - view Index executed in 138.6441ms.
+2025-02-28 17:43:56 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 194.3213ms
+2025-02-28 17:43:56 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 17:43:56 [INF] HTTP GET / responded 200 in 252.1954 ms
+2025-02-28 17:43:56 [INF] Request finished in 359.5189ms 200 text/html; charset=utf-8
+2025-02-28 17:43:56 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:43:56 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:43:56 [INF] Request finished in 3.8077ms 200 application/javascript; charset=utf-8
+2025-02-28 17:43:56 [INF] Request finished in 38.1273ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:43:57 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Order  
+2025-02-28 17:43:57 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:43:57 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 17:43:57 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:43:57 [INF] Executed ViewResult - view Index executed in 10.6483ms.
+2025-02-28 17:43:57 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 11.5533ms
+2025-02-28 17:43:57 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:43:57 [INF] HTTP GET /Admin/Order responded 200 in 15.1891 ms
+2025-02-28 17:43:57 [INF] Request finished in 22.4745ms 200 text/html; charset=utf-8
+2025-02-28 17:43:57 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:43:57 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:43:57 [INF] Request finished in 0.3696ms 200 application/javascript; charset=utf-8
+2025-02-28 17:43:57 [INF] Request finished in 10.5346ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:05 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Order  
+2025-02-28 17:44:05 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:05 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 17:44:05 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:05 [INF] Executed ViewResult - view Index executed in 2.2082ms.
+2025-02-28 17:44:05 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 2.6466ms
+2025-02-28 17:44:05 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:05 [INF] HTTP GET /Admin/Order responded 200 in 5.0605 ms
+2025-02-28 17:44:05 [INF] Request finished in 8.5792ms 200 text/html; charset=utf-8
+2025-02-28 17:44:05 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:05 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:05 [INF] Request finished in 0.3259ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:05 [INF] Request finished in 7.7271ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/user  
+2025-02-28 17:44:07 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:07 [INF] Route matched with {area = "Admin", action = "Index", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.UserController (ASP_Homework_Product).
+2025-02-28 17:44:07 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:07 [INF] Executed ViewResult - view Index executed in 5.5853ms.
+2025-02-28 17:44:07 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product) in 6.3035ms
+2025-02-28 17:44:07 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:07 [INF] HTTP GET /admin/user responded 200 in 10.4529 ms
+2025-02-28 17:44:07 [INF] Request finished in 14.9742ms 200 text/html; charset=utf-8
+2025-02-28 17:44:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:07 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:07 [INF] Request finished in 0.4055ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:07 [INF] Request finished in 5.5318ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/role  
+2025-02-28 17:44:08 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:08 [INF] Route matched with {area = "Admin", action = "Index", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:44:08 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:08 [INF] Executed ViewResult - view Index executed in 5.7666ms.
+2025-02-28 17:44:08 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product) in 6.7693ms
+2025-02-28 17:44:08 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:08 [INF] HTTP GET /admin/role responded 200 in 9.1753 ms
+2025-02-28 17:44:08 [INF] Request finished in 12.6511ms 200 text/html; charset=utf-8
+2025-02-28 17:44:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:08 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:08 [INF] Request finished in 0.3911ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:08 [INF] Request finished in 4.8671ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/role/add  
+2025-02-28 17:44:09 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:09 [INF] Route matched with {area = "Admin", action = "Add", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:44:09 [INF] Executing ViewResult, running view Add.
+2025-02-28 17:44:09 [INF] Executed ViewResult - view Add executed in 27.6958ms.
+2025-02-28 17:44:09 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product) in 28.1457ms
+2025-02-28 17:44:09 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:09 [INF] HTTP GET /admin/role/add responded 200 in 30.6892 ms
+2025-02-28 17:44:09 [INF] Request finished in 34.8067ms 200 text/html; charset=utf-8
+2025-02-28 17:44:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:09 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:09 [INF] Request finished in 0.4038ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:09 [INF] Request finished in 5.0668ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:11 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Admin/Role/Add application/x-www-form-urlencoded 208
+2025-02-28 17:44:11 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:11 [INF] Route matched with {area = "Admin", action = "Add", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add(ASP_Homework_Product.Areas.Admin.Models.Role) on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:44:11 [INF] Executing RedirectResult, redirecting to /Admin/Role.
+2025-02-28 17:44:11 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product) in 29.6597ms
+2025-02-28 17:44:11 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:11 [INF] HTTP POST /Admin/Role/Add responded 302 in 42.1249 ms
+2025-02-28 17:44:11 [INF] Request finished in 48.4093ms 302 
+2025-02-28 17:44:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Role  
+2025-02-28 17:44:11 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:11 [INF] Route matched with {area = "Admin", action = "Index", controller = "Role"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.RoleController (ASP_Homework_Product).
+2025-02-28 17:44:11 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:11 [INF] Executed ViewResult - view Index executed in 1.8971ms.
+2025-02-28 17:44:11 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product) in 2.2365ms
+2025-02-28 17:44:11 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.RoleController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:11 [INF] HTTP GET /Admin/Role responded 200 in 2.7297 ms
+2025-02-28 17:44:11 [INF] Request finished in 4.7098ms 200 text/html; charset=utf-8
+2025-02-28 17:44:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:11 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:11 [INF] Request finished in 0.4329ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:11 [INF] Request finished in 5.5291ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:12 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/user  
+2025-02-28 17:44:12 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:12 [INF] Route matched with {area = "Admin", action = "Index", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.UserController (ASP_Homework_Product).
+2025-02-28 17:44:12 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:12 [INF] Executed ViewResult - view Index executed in 5.3757ms.
+2025-02-28 17:44:12 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product) in 6.0007ms
+2025-02-28 17:44:12 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.UserController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:12 [INF] HTTP GET /admin/user responded 200 in 7.3359 ms
+2025-02-28 17:44:12 [INF] Request finished in 10.6285ms 200 text/html; charset=utf-8
+2025-02-28 17:44:12 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:12 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:12 [INF] Request finished in 0.9281ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:12 [INF] Request finished in 36.46ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/order  
+2025-02-28 17:44:13 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:13 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 17:44:13 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:13 [INF] Executed ViewResult - view Index executed in 4.4657ms.
+2025-02-28 17:44:13 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 4.8414ms
+2025-02-28 17:44:13 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:13 [INF] HTTP GET /admin/order responded 200 in 5.7725 ms
+2025-02-28 17:44:13 [INF] Request finished in 8.2352ms 200 text/html; charset=utf-8
+2025-02-28 17:44:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:13 [INF] Request finished in 4.4211ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:13 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:13 [INF] Request finished in 0.3512ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/product  
+2025-02-28 17:44:14 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:14 [INF] Route matched with {area = "Admin", action = "Index", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.ProductController (ASP_Homework_Product).
+2025-02-28 17:44:14 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:14 [INF] Executed ViewResult - view Index executed in 7.5079ms.
+2025-02-28 17:44:14 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product) in 8.0266ms
+2025-02-28 17:44:14 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:14 [INF] HTTP GET /admin/product responded 200 in 12.6491 ms
+2025-02-28 17:44:14 [INF] Request finished in 16.3471ms 200 text/html; charset=utf-8
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:14 [INF] Request finished in 0.443ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:14 [INF] Request finished in 5.3509ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/admin/product/add  
+2025-02-28 17:44:14 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:14 [INF] Route matched with {area = "Admin", action = "Add", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add() on controller ASP_Homework_Product.Areas.Admin.Controllers.ProductController (ASP_Homework_Product).
+2025-02-28 17:44:14 [INF] Executing ViewResult, running view Add.
+2025-02-28 17:44:14 [INF] Executed ViewResult - view Add executed in 17.4614ms.
+2025-02-28 17:44:14 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product) in 17.9142ms
+2025-02-28 17:44:14 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:14 [INF] HTTP GET /admin/product/add responded 200 in 20.1844 ms
+2025-02-28 17:44:14 [INF] Request finished in 22.2409ms 200 text/html; charset=utf-8
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:14 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:14 [INF] Request finished in 0.8393ms 200 application/javascript; charset=utf-8
+2025-02-28 17:44:14 [INF] Request finished in 5.6773ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:23 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Admin/Product/Add application/x-www-form-urlencoded 234
+2025-02-28 17:44:23 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:23 [INF] Route matched with {area = "Admin", action = "Add", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Add(ASP_Homework_Product.Models.Product) on controller ASP_Homework_Product.Areas.Admin.Controllers.ProductController (ASP_Homework_Product).
+2025-02-28 17:44:23 [INF] Executing RedirectResult, redirecting to /Admin/Product.
+2025-02-28 17:44:23 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product) in 3.6786ms
+2025-02-28 17:44:23 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Add (ASP_Homework_Product)'
+2025-02-28 17:44:23 [INF] HTTP POST /Admin/Product/Add responded 302 in 9.2880 ms
+2025-02-28 17:44:23 [INF] Request finished in 12.3222ms 302 
+2025-02-28 17:44:23 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Product  
+2025-02-28 17:44:23 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:23 [INF] Route matched with {area = "Admin", action = "Index", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.ProductController (ASP_Homework_Product).
+2025-02-28 17:44:23 [INF] Executing ViewResult, running view Index.
+2025-02-28 17:44:23 [INF] Executed ViewResult - view Index executed in 1.1773ms.
+2025-02-28 17:44:23 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product) in 1.3285ms
+2025-02-28 17:44:23 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.ProductController.Index (ASP_Homework_Product)'
+2025-02-28 17:44:23 [INF] HTTP GET /Admin/Product responded 200 in 1.7142 ms
+2025-02-28 17:44:23 [INF] Request finished in 3.2393ms 200 text/html; charset=utf-8
+2025-02-28 17:44:23 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 17:44:23 [INF] Request finished in 5.1567ms 200 text/javascript; charset=UTF-8
+2025-02-28 17:44:23 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 17:44:23 [INF] Request finished in 0.418ms 200 application/javascript; charset=utf-8
+2025-02-28 18:18:38 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 18:18:38 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 18:18:38 [INF] Hosting environment: Development
+2025-02-28 18:18:38 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 18:18:38 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 18:18:38 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:18:38 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 18:18:38 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:18:38 [INF] Executed ViewResult - view Index executed in 151.0928ms.
+2025-02-28 18:18:38 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 216.7426ms
+2025-02-28 18:18:38 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:18:38 [INF] HTTP GET / responded 200 in 282.6994 ms
+2025-02-28 18:18:38 [INF] Request finished in 396.593ms 200 text/html; charset=utf-8
+2025-02-28 18:18:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:18:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:18:39 [INF] Request finished in 4.2114ms 200 application/javascript; charset=utf-8
+2025-02-28 18:18:39 [INF] Request finished in 40.036ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:18:42 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Account/Login  
+2025-02-28 18:18:42 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:42 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:18:42 [INF] Executing ViewResult, running view Login.
+2025-02-28 18:18:42 [INF] Executed ViewResult - view Login executed in 32.2838ms.
+2025-02-28 18:18:42 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product) in 32.9726ms
+2025-02-28 18:18:42 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:42 [INF] HTTP GET /Account/Login responded 200 in 37.7264 ms
+2025-02-28 18:18:42 [INF] Request finished in 44.7783ms 200 text/html; charset=utf-8
+2025-02-28 18:18:42 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:18:42 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:18:42 [INF] Request finished in 0.3769ms 200 application/javascript; charset=utf-8
+2025-02-28 18:18:42 [INF] Request finished in 10.485ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:18:58 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Account/Login application/x-www-form-urlencoded 228
+2025-02-28 18:18:58 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:58 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(ASP_Homework_Product.Models.Login) on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:18:58 [INF] Executing RedirectResult, redirecting to /Account/Login.
+2025-02-28 18:18:58 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product) in 25.6381ms
+2025-02-28 18:18:58 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:58 [INF] HTTP POST /Account/Login responded 302 in 36.9130 ms
+2025-02-28 18:18:58 [INF] Request finished in 42.7135ms 302 
+2025-02-28 18:18:58 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Account/Login  
+2025-02-28 18:18:58 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:58 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:18:58 [INF] Executing ViewResult, running view Login.
+2025-02-28 18:18:58 [INF] Executed ViewResult - view Login executed in 2.6684ms.
+2025-02-28 18:18:58 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product) in 2.9109ms
+2025-02-28 18:18:58 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:18:58 [INF] HTTP GET /Account/Login responded 200 in 3.4180 ms
+2025-02-28 18:18:58 [INF] Request finished in 5.1418ms 200 text/html; charset=utf-8
+2025-02-28 18:18:58 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:18:58 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:18:58 [INF] Request finished in 0.465ms 200 application/javascript; charset=utf-8
+2025-02-28 18:18:58 [INF] Request finished in 13.2216ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:19:05 [INF] Request starting HTTP/1.1 GET http://localhost:59640/account/register  
+2025-02-28 18:19:05 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:19:05 [INF] Route matched with {action = "Register", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:19:05 [INF] Executing ViewResult, running view Register.
+2025-02-28 18:19:05 [INF] Executed ViewResult - view Register executed in 17.4069ms.
+2025-02-28 18:19:05 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product) in 18.0452ms
+2025-02-28 18:19:05 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:19:05 [INF] HTTP GET /account/register responded 200 in 23.3019 ms
+2025-02-28 18:19:05 [INF] Request finished in 30.3449ms 200 text/html; charset=utf-8
+2025-02-28 18:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:19:06 [INF] Request finished in 0.9203ms 200 application/javascript; charset=utf-8
+2025-02-28 18:19:06 [INF] Request finished in 5.8012ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:18 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 18:43:18 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 18:43:18 [INF] Hosting environment: Development
+2025-02-28 18:43:18 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 18:43:18 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 18:43:18 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:18 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 18:43:18 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:43:18 [INF] Executed ViewResult - view Index executed in 143.4873ms.
+2025-02-28 18:43:18 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 201.3798ms
+2025-02-28 18:43:18 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:18 [INF] HTTP GET / responded 200 in 261.8386 ms
+2025-02-28 18:43:18 [INF] Request finished in 369.4968ms 200 text/html; charset=utf-8
+2025-02-28 18:43:19 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:43:19 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:43:19 [INF] Request finished in 3.2483ms 200 application/javascript; charset=utf-8
+2025-02-28 18:43:19 [INF] Request finished in 37.7859ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:19 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Order  
+2025-02-28 18:43:19 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:19 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 18:43:19 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:43:19 [INF] Executed ViewResult - view Index executed in 17.0406ms.
+2025-02-28 18:43:19 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 17.936ms
+2025-02-28 18:43:19 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:19 [INF] HTTP GET /Admin/Order responded 200 in 21.9263 ms
+2025-02-28 18:43:19 [INF] Request finished in 29.26ms 200 text/html; charset=utf-8
+2025-02-28 18:43:19 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:43:19 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:43:19 [INF] Request finished in 0.3743ms 200 application/javascript; charset=utf-8
+2025-02-28 18:43:19 [INF] Request finished in 11.1933ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Cart  
+2025-02-28 18:43:21 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:21 [INF] Route matched with {action = "Index", controller = "Cart", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.CartController (ASP_Homework_Product).
+2025-02-28 18:43:21 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:43:21 [INF] Executed ViewResult - view Index executed in 5.689ms.
+2025-02-28 18:43:21 [INF] Executed action ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product) in 6.2592ms
+2025-02-28 18:43:21 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product)'
+2025-02-28 18:43:21 [INF] HTTP GET /Cart responded 200 in 9.5797 ms
+2025-02-28 18:43:21 [INF] Request finished in 13.1678ms 200 text/html; charset=utf-8
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:43:21 [INF] Request finished in 0.5881ms 200 application/javascript; charset=utf-8
+2025-02-28 18:43:21 [INF] Request finished in 6.6643ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Account/Login  
+2025-02-28 18:43:21 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:43:21 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:43:21 [INF] Executing ViewResult, running view Login.
+2025-02-28 18:43:21 [INF] Executed ViewResult - view Login executed in 31.6056ms.
+2025-02-28 18:43:21 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product) in 32.2648ms
+2025-02-28 18:43:21 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:43:21 [INF] HTTP GET /Account/Login responded 200 in 34.8431 ms
+2025-02-28 18:43:21 [INF] Request finished in 39.6368ms 200 text/html; charset=utf-8
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:43:21 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:43:21 [INF] Request finished in 0.2929ms 200 application/javascript; charset=utf-8
+2025-02-28 18:43:21 [INF] Request finished in 5.475ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:22 [INF] Request starting HTTP/1.1 GET http://localhost:59640/account/register  
+2025-02-28 18:43:22 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:43:22 [INF] Route matched with {action = "Register", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:43:22 [INF] Executing ViewResult, running view Register.
+2025-02-28 18:43:22 [INF] Executed ViewResult - view Register executed in 15.7101ms.
+2025-02-28 18:43:22 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product) in 16.1904ms
+2025-02-28 18:43:22 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:43:22 [INF] HTTP GET /account/register responded 200 in 19.8782 ms
+2025-02-28 18:43:22 [INF] Request finished in 23.5847ms 200 text/html; charset=utf-8
+2025-02-28 18:43:22 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:43:22 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:43:22 [INF] Request finished in 0.8532ms 200 application/javascript; charset=utf-8
+2025-02-28 18:43:22 [INF] Request finished in 11.1596ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:43:26 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Account/Register application/x-www-form-urlencoded 270
+2025-02-28 18:43:26 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:43:26 [INF] Route matched with {action = "Register", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(ASP_Homework_Product.Models.Register) on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:43:26 [INF] Executing RedirectResult, redirecting to /HomeController.
+2025-02-28 18:43:26 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product) in 26.3051ms
+2025-02-28 18:43:26 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:43:26 [INF] HTTP POST /Account/Register responded 302 in 35.8880 ms
+2025-02-28 18:43:26 [INF] Request finished in 41.7615ms 302 
+2025-02-28 18:43:26 [INF] Request starting HTTP/1.1 GET http://localhost:59640/HomeController  
+2025-02-28 18:43:26 [INF] HTTP GET /HomeController responded 404 in 0.1236 ms
+2025-02-28 18:43:26 [INF] Request finished in 2.4302ms 404 
+2025-02-28 18:44:46 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 18:44:46 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 18:44:46 [INF] Hosting environment: Development
+2025-02-28 18:44:46 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 18:44:46 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 18:44:46 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:44:47 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 18:44:47 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:44:47 [INF] Executed ViewResult - view Index executed in 134.5461ms.
+2025-02-28 18:44:47 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 189.1298ms
+2025-02-28 18:44:47 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:44:47 [INF] HTTP GET / responded 200 in 249.9027 ms
+2025-02-28 18:44:47 [INF] Request finished in 351.6376ms 200 text/html; charset=utf-8
+2025-02-28 18:44:47 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:44:47 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:44:47 [INF] Request finished in 3.6543ms 200 application/javascript; charset=utf-8
+2025-02-28 18:44:47 [INF] Request finished in 35.0281ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:44:48 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Admin/Order  
+2025-02-28 18:44:48 [INF] Executing endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 18:44:48 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller ASP_Homework_Product.Areas.Admin.Controllers.OrderController (ASP_Homework_Product).
+2025-02-28 18:44:48 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:44:48 [INF] Executed ViewResult - view Index executed in 10.1589ms.
+2025-02-28 18:44:48 [INF] Executed action ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product) in 11.1221ms
+2025-02-28 18:44:48 [INF] Executed endpoint 'ASP_Homework_Product.Areas.Admin.Controllers.OrderController.Index (ASP_Homework_Product)'
+2025-02-28 18:44:48 [INF] HTTP GET /Admin/Order responded 200 in 15.3309 ms
+2025-02-28 18:44:48 [INF] Request finished in 23.0671ms 200 text/html; charset=utf-8
+2025-02-28 18:44:48 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:44:48 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:44:48 [INF] Request finished in 0.3091ms 200 application/javascript; charset=utf-8
+2025-02-28 18:44:48 [INF] Request finished in 15.0087ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:44:49 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Account/Login  
+2025-02-28 18:44:49 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:44:49 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:44:49 [INF] Executing ViewResult, running view Login.
+2025-02-28 18:44:49 [INF] Executed ViewResult - view Login executed in 32.1484ms.
+2025-02-28 18:44:49 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product) in 32.9246ms
+2025-02-28 18:44:49 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Login (ASP_Homework_Product)'
+2025-02-28 18:44:49 [INF] HTTP GET /Account/Login responded 200 in 36.6936 ms
+2025-02-28 18:44:49 [INF] Request finished in 39.9781ms 200 text/html; charset=utf-8
+2025-02-28 18:44:49 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:44:49 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:44:49 [INF] Request finished in 0.3084ms 200 application/javascript; charset=utf-8
+2025-02-28 18:44:49 [INF] Request finished in 9.1598ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:45:00 [INF] Request starting HTTP/1.1 GET http://localhost:59640/account/register  
+2025-02-28 18:45:00 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:45:00 [INF] Route matched with {action = "Register", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register() on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:45:00 [INF] Executing ViewResult, running view Register.
+2025-02-28 18:45:00 [INF] Executed ViewResult - view Register executed in 20.6166ms.
+2025-02-28 18:45:00 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product) in 21.4904ms
+2025-02-28 18:45:00 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:45:00 [INF] HTTP GET /account/register responded 200 in 26.5798 ms
+2025-02-28 18:45:00 [INF] Request finished in 31.2868ms 200 text/html; charset=utf-8
+2025-02-28 18:45:00 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:45:00 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:45:00 [INF] Request finished in 0.3956ms 200 application/javascript; charset=utf-8
+2025-02-28 18:45:00 [INF] Request finished in 5.0948ms 200 text/javascript; charset=UTF-8
+2025-02-28 18:45:16 [INF] Request starting HTTP/1.1 POST http://localhost:59640/Account/Register application/x-www-form-urlencoded 244
+2025-02-28 18:45:16 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:45:16 [INF] Route matched with {action = "Register", controller = "Account", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(ASP_Homework_Product.Models.Register) on controller ASP_Homework_Product.Controllers.AccountController (ASP_Homework_Product).
+2025-02-28 18:45:16 [INF] Executing RedirectResult, redirecting to /.
+2025-02-28 18:45:16 [INF] Executed action ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product) in 26.0819ms
+2025-02-28 18:45:16 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.AccountController.Register (ASP_Homework_Product)'
+2025-02-28 18:45:16 [INF] HTTP POST /Account/Register responded 302 in 36.5065 ms
+2025-02-28 18:45:16 [INF] Request finished in 42.2816ms 302 
+2025-02-28 18:45:16 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 18:45:16 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:45:16 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 18:45:16 [INF] Executing ViewResult, running view Index.
+2025-02-28 18:45:16 [INF] Executed ViewResult - view Index executed in 1.6294ms.
+2025-02-28 18:45:16 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 1.8601ms
+2025-02-28 18:45:16 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 18:45:16 [INF] HTTP GET / responded 200 in 2.3160 ms
+2025-02-28 18:45:16 [INF] Request finished in 4.33ms 200 text/html; charset=utf-8
+2025-02-28 18:45:16 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 18:45:16 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 18:45:16 [INF] Request finished in 0.3988ms 200 application/javascript; charset=utf-8
+2025-02-28 18:45:16 [INF] Request finished in 8.694ms 200 text/javascript; charset=UTF-8
+2025-02-28 19:00:45 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-28 19:00:45 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-28 19:00:45 [INF] Hosting environment: Development
+2025-02-28 19:00:45 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-02-28 19:00:45 [INF] Request starting HTTP/1.1 GET http://localhost:59640/  
+2025-02-28 19:00:45 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 19:00:45 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-02-28 19:00:45 [INF] Executing ViewResult, running view Index.
+2025-02-28 19:00:45 [INF] Executed ViewResult - view Index executed in 144.0192ms.
+2025-02-28 19:00:45 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 205.154ms
+2025-02-28 19:00:45 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-02-28 19:00:45 [INF] HTTP GET / responded 200 in 262.3872 ms
+2025-02-28 19:00:45 [INF] Request finished in 367.7928ms 200 text/html; charset=utf-8
+2025-02-28 19:00:46 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js  
+2025-02-28 19:00:46 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink  
+2025-02-28 19:00:46 [INF] Request finished in 3.0103ms 200 application/javascript; charset=utf-8
+2025-02-28 19:00:46 [INF] Request finished in 35.8415ms 200 text/javascript; charset=UTF-8

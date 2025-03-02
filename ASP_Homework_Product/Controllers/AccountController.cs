@@ -1,10 +1,22 @@
-﻿using ASP_Homework_Product.Areas.Admin.Models;
+﻿using ASP_Homework_Product.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace ASP_Homework_Product.Controllers
 {
     public class AccountController : Controller
     {
+
+        private readonly IUsersManager usersManager;
+
+        public AccountController(IUsersManager usersManager)
+        {
+            this.usersManager = usersManager;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -13,12 +25,23 @@ namespace ASP_Homework_Product.Controllers
         [HttpPost]
         public IActionResult Login(Login login)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return RedirectToAction(nameof(Login));
+
+            var userAccount = usersManager.TryGetByName(login.UserName);
+            if (userAccount == null)
             {
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "Такого пользователя не существует");
+                return RedirectToAction(nameof(Login));
             }
 
-            return RedirectToAction("Login");
+            if (userAccount.Password != login.Password)
+            {
+                ModelState.AddModelError("", "Неправильный пароль");
+                return RedirectToAction(nameof(Login));
+            }
+
+            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController));
         }
 
         public IActionResult Register()
@@ -36,10 +59,22 @@ namespace ASP_Homework_Product.Controllers
 
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                Console.WriteLine($"Регистрируем пользователя: {register.UserName}");
+
+                usersManager.Add(new UserAccount
+                {
+                    Name = register.UserName,
+                    Password = register.Password,
+                    Phone = register.Phone
+                });
+
+                Console.WriteLine($"После регистрации пользователей: {usersManager.GetAll().Count}");
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            return RedirectToAction("Register");
+            return RedirectToAction(nameof(Register));
         }
+
     }
 }

@@ -1,9 +1,5 @@
 ﻿using ASP_Homework_Product.Areas.Admin.Models;
-using ASP_Homework_Product.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ASP_Homework_Product.Areas.Admin.Controllers
 {
@@ -26,7 +22,7 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
         public IActionResult Remove(string roleName)
         {
             rolesRes.Remove(roleName);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Add()
@@ -44,7 +40,7 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 rolesRes.Add(role);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(role);
         }

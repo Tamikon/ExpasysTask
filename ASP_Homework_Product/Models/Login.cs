@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ASP_Homework_Product.Areas.Admin.Models
+namespace ASP_Homework_Product.Models
 {
-    public class Register
+    public class Login
     {
         [Required]
         [EmailAddress]
@@ -12,9 +12,6 @@ namespace ASP_Homework_Product.Areas.Admin.Models
         [StringLength(100, MinimumLength = 4)]
         public string Password { get; set; }
 
-        [Required]
-        [StringLength(100, MinimumLength = 4)]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

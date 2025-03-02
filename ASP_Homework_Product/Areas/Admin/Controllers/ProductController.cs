@@ -1,9 +1,5 @@
-﻿using ASP_Homework_Product.Areas.Admin.Models;
-using ASP_Homework_Product.Models;
-using Microsoft.AspNetCore.Http;
+﻿using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ASP_Homework_Product.Areas.Admin.Controllers
 {
@@ -36,7 +32,7 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
                 return View(product);
             }
             productsRes.Add(product);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Edit(int productId)
@@ -53,7 +49,7 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
                 return View(product);
             }
             productsRes.Update(product);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

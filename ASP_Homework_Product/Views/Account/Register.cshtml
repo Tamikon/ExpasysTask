@@ -1,4 +1,4 @@
-﻿@model ASP_Homework_Product.Areas.Admin.Models.Register
+﻿@model Register
 
 
 <form method="post">
@@ -21,6 +21,14 @@
             <label asp-for="Password"></label><br />
             <input type="password" class="form-control" asp-for="Password" autocomplete="new-password" />
             <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Phone"></label><br />
+            <input type="password" class="form-control" asp-for="Phone" autocomplete="new-password" />
+            <span class="text-danger" asp-validation-for="Phone"></span>
         </div>
     </div>
 
