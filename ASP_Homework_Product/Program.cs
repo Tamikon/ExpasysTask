@@ -1,35 +1,64 @@
-using System;
-using Serilog;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using ASP_Homework_Product;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace ASP_Homework_Product
+var builder = WebApplication.CreateBuilder(args);
+
+// Настраиваем Serilog
+builder.Host.UseSerilog((context, loggerConfiguration) =>
 {
-    public class Program
+    loggerConfiguration
+        .ReadFrom.Configuration(context.Configuration)
+        .Enrich.FromLogContext()
+        .Enrich.WithProperty("ApplicationName", "Online Shop");
+});
+
+// Регистрация зависимостей
+builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
+builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
+builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+builder.Services.AddSingleton<IUsersManager, UsersManager>();
+
+// Добавляем поддержку аутентификации через куки
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
+        options.LoginPath = "/Account/Login"; // Куда перенаправлять неавторизованных пользователей
+        options.LogoutPath = "/Account/Logout";
+    });
 
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+builder.Services.AddAuthorization();
+builder.Services.AddControllersWithViews();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .UseSerilog((hostingContext, loggerConfiguration) =>
-            {
-                loggerConfiguration
-                .ReadFrom.Configuration(hostingContext.Configuration)
-                .Enrich.FromLogContext()
-                .Enrich.WithProperty("ApplicationName", "Online Shop");
-            })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+var app = builder.Build();
+
+// Обработка ошибок
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+
+app.UseSerilogRequestLogging();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

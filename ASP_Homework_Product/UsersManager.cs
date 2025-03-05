@@ -1,7 +1,6 @@
 ﻿using ASP_Homework_Product.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
 
 namespace ASP_Homework_Product
 {
@@ -11,9 +10,8 @@ namespace ASP_Homework_Product
 
         public UsersManager()
         {
-            users.Add(new UserAccount { Name = "admin", Password = "admin", Phone = "1234567890" });
+            users.Add(new UserAccount { Name = "admin@gmail.com", Password = "admin", Phone = "1234567890" });
         }
-
 
         public List<UserAccount> GetAll()
         {
@@ -32,11 +30,16 @@ namespace ASP_Homework_Product
         public void ChangePassword(string userName, string newPassword)
         {
             var account = TryGetByName(userName);
-            if (account == null)
-            {
-                return;
-            }
             account.Password = newPassword;
+        }
+
+        public void SetBlockedStatus(string userName, bool isBlocked)
+        {
+            var user = TryGetByName(userName);
+            if (user != null)
+            {
+                user.IsBlocked = isBlocked;
+            }
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model UserAccount
+
+<h3>Редактирование прав доступа для @Model.Name</h3>
+
+<form method="post">
+    <input type="hidden" asp-for="Name" />
+
+    <div>
+        <label>Статус пользователя:</label>
+        <select asp-for="IsBlocked" class="form-control">
+            <option value="false">Активен</option>
+            <option value="true">Заблокирован</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>

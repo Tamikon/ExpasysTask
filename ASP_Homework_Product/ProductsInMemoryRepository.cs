@@ -4,7 +4,7 @@ using ASP_Homework_Product.Models;
 
 namespace ASP_Homework_Product
 {
-    public class ProductsInMemoryRes : IProductRes
+    public class ProductsInMemoryRepository : IProductRepository
     {
         private List<Product> productsList = new List<Product>()
         {
@@ -55,6 +55,15 @@ namespace ASP_Homework_Product
                 }
             }
             return null;
+        }
+
+        public void Delete(int id)
+        {
+            var product = TryGetById(id);
+            if (product != null)
+            {
+                productsList.Remove(product);
+            }
         }
     }
 }

@@ -6,16 +6,16 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
-        private readonly IProductRes productsRes;
+        private readonly IProductRepository _productsRepository;
 
-        public ProductController(IProductRes productRes)
+        public ProductController(IProductRepository _productRepository)
         {
-            this.productsRes = productRes;
+            this._productsRepository = _productRepository;
         }
 
         public ActionResult Index()
         {
-            var products = productsRes.GetProducts();
+            var products = _productsRepository.GetProducts();
             return View(products);
         }
 
@@ -31,13 +31,13 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             {
                 return View(product);
             }
-            productsRes.Add(product);
+            _productsRepository.Add(product);
             return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Edit(int productId)
         {
-            var product = productsRes.TryGetById(productId);
+            var product = _productsRepository.TryGetById(productId);
             return View(product);
         }
 
@@ -48,7 +48,18 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             {
                 return View(product);
             }
-            productsRes.Update(product);
+            _productsRepository.Update(product);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var product = _productsRepository.TryGetById(id);
+            if (product != null)
+            {
+                _productsRepository.Delete(id);
+            }
             return RedirectToAction(nameof(Index));
         }
     }

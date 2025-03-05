@@ -6,9 +6,9 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
     [Area("Admin")]
     public class RoleController : Controller
     {
-        private readonly IRolesRes rolesRes;
+        private readonly IRolesRepository rolesRes;
 
-        public RoleController(IRolesRes rolesRes)
+        public RoleController(IRolesRepository rolesRes)
         {
             this.rolesRes = rolesRes;
         }

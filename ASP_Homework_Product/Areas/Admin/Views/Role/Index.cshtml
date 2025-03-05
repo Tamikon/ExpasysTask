@@ -25,7 +25,7 @@
                         <tr>
                             <td>@(i + 1)</td>
                             <td>@Model[i].Name</td>
-                            <td><a href="/admin/Role/remove?roleName=@Model[i].Name">Удалить</a></td>
+                            <td><a class="btn btn-danger" href="/admin/Role/remove?roleName=@Model[i].Name">Удалить</a></td>
                         </tr>
                     }
                 </tbody>

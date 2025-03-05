@@ -3,6 +3,7 @@ using ASP_Homework_Product.Controllers;
 using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization;
+using System.Xml.Linq;
 
 namespace ASP_Homework_Product.Areas.Admin.Controllers
 {
@@ -53,5 +54,27 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ChangePassword));
         }
+
+        public ActionResult EditRights(string name)
+        {
+            var user = usersManager.TryGetByName(name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditRights(UserAccount updatedUser)
+        {
+            var user = usersManager.TryGetByName(updatedUser.Name);
+            if (user != null)
+            {
+                user.IsBlocked = updatedUser.IsBlocked;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

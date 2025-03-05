@@ -2,7 +2,7 @@
 
 namespace ASP_Homework_Product
 {
-    public interface ICartsRes
+    public interface ICartsRepository
     {
         void Add(Product product, string userId);
         void Clear(string userId);

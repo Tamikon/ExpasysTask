@@ -11,20 +11,20 @@ namespace ASP_Homework_Product.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductRes productList;
-        private readonly ICartsRes cartsRes;
+        private readonly IProductRepository _productRepository;
+        private readonly ICartsRepository _cartsRepository;
 
-        public HomeController(IProductRes productList, ICartsRes cartsRes)
+        public HomeController(IProductRepository productRepository, ICartsRepository cartsRepository)
         {
-            this.productList = productList;
-            this.cartsRes = cartsRes;
+            this._productRepository = productRepository;
+            this._cartsRepository = cartsRepository;
         }
 
         public IActionResult Index()
         {
-            var cart = cartsRes.TryGetByUserId(Constants.UserId);
+            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
             ViewBag.ProductCount = cart?.Amount;
-            var products = productList.GetProducts();
+            var products = _productRepository.GetProducts();
             return View(products);
         }
 

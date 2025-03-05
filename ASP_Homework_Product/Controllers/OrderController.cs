@@ -6,13 +6,13 @@ namespace ASP_Homework_Product.Controllers
     public class OrderController : Controller
     {
 
-        private readonly ICartsRes cartsRes;
-        private readonly IOrdersRes ordersRes;
+        private readonly ICartsRepository _cartsRepository;
+        private readonly IOrdersRepository _ordersRepository;
 
-        public OrderController(ICartsRes cartsRes, IOrdersRes ordersRes)
+        public OrderController(ICartsRepository cartsRepository, IOrdersRepository ordersRepository)
         {
-            this.cartsRes = cartsRes;
-            this.ordersRes = ordersRes;
+            this._cartsRepository = cartsRepository;
+            this._ordersRepository = ordersRepository;
         }
 
         public IActionResult Index()
@@ -30,14 +30,14 @@ namespace ASP_Homework_Product.Controllers
                 return RedirectToAction("Index", user);
             }
 
-            var existingCart = cartsRes.TryGetByUserId(Constants.UserId);
+            var existingCart = _cartsRepository.TryGetByUserId(Constants.UserId);
             var order = new Order
             {
                 User = user,
                 Items = existingCart.Items
             };
-            ordersRes.Add(order);
-            cartsRes.Clear(Constants.UserId);
+            _ordersRepository.Add(order);
+            _cartsRepository.Clear(Constants.UserId);
             return View();
         }
     }

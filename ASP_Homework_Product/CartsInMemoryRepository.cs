@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ASP_Homework_Product
 {
-    public class CartsInMemoryRes : ICartsRes
+    public class CartsInMemoryRepository : ICartsRepository
     {
         private List<Cart> carts = new List<Cart>();
 

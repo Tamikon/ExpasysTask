@@ -1,29 +1,97 @@
-﻿<div class="text-center">
-    <h2 class="display-4">Ноутбуки</h2>
-</div>
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин ноутбуков</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            width: 250px;
+            text-align: center;
+        }
 
-<div class="row justify-content-center">
+            .product-card img {
+                width: 100%;
+                height: auto;
+            }
 
-    @foreach (var product in Model)
-    {
-        <div class="col-3 card shadow">
-            <img class="card-img-top" src="@product.ImagePath">
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
 
-            <div class="card-body">
-                <a style="color:black"
-                asp-area=""
-                asp-controller="Product"
-                asp-action="Index"
-                asp-route-id="@product.Id">
-                    <h5>@product.Name</h5>
-                </a>
-                <h5>@product.Cost руб</h5>
-                <a class="btn btn-dark"
-                asp-area=""
-                asp-controller="Cart"
-                asp-action="Add"
-                asp-route-productId="@product.Id">Добавить в корзину</a>
-            </div>
-        </div>
-    }
-</div>
+    <h2 class="text-center">Ноутбуки</h2>
+
+    <div id="products-container"></div>
+
+    <script>
+        $(document).ready(function () {
+            loadProducts();
+
+            function loadProducts() {
+                $.ajax({
+                    url: "/Product/GetProducts",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (products) {
+                        if (products.error) {
+                            console.error(products.error);
+                            return;
+                        }
+
+                        let productsHtml = "";
+                        products.forEach(product => {
+                            productsHtml += `
+                                <div class="product-card">
+                                    <img src="${product.imagePath}" alt="${product.name}">
+                                    <h5>${product.name}</h5>
+                                    <p>${product.cost} руб</p>
+                                    <button class="btn add-to-cart" data-id="${product.id}">Добавить в корзину</button>
+                                </div>
+                            `;
+                        });
+
+                        $("#products-container").html(productsHtml);
+                    },
+                    error: function () {
+                        console.error("Ошибка загрузки товаров.");
+                    }
+                });
+            }
+
+            $(document).on("click", ".add-to-cart", function () {
+                let productId = $(this).data("id");
+
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    type: "POST",
+                    data: { productId: productId },
+                    success: function () {
+                        alert("Товар добавлен в корзину!");
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert("Чтобы добавлять товары в корзину, нужно войти в аккаунт.");
+                            window.location.href = "/Account/Login";
+                        } else {
+                            alert("Ошибка добавления в корзину.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

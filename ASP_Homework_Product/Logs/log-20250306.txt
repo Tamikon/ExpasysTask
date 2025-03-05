@@ -1,0 +1,38 @@
+2025-03-06 00:29:38 [INF] User profile is available. Using 'C:\Users\richi\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-06 00:29:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/ - null null
+2025-03-06 00:29:39 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-06 00:29:39 [INF] Hosting environment: Development
+2025-03-06 00:29:39 [INF] Content root path: C:\Users\richi\source\repos\ASP_Homework_Product-ExpasysTask\ASP_Homework_Product
+2025-03-06 00:29:39 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-03-06 00:29:39 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.HomeController (ASP_Homework_Product).
+2025-03-06 00:29:39 [INF] Executing ViewResult, running view Index.
+2025-03-06 00:29:39 [INF] Executed ViewResult - view Index executed in 141.1778ms.
+2025-03-06 00:29:39 [INF] Executed action ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product) in 204.1104ms
+2025-03-06 00:29:39 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.HomeController.Index (ASP_Homework_Product)'
+2025-03-06 00:29:39 [INF] HTTP GET / responded 200 in 288.3261 ms
+2025-03-06 00:29:39 [INF] Request finished HTTP/1.1 GET http://localhost:59640/ - 200 null text/html; charset=utf-8 412.5543ms
+2025-03-06 00:29:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-06 00:29:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink - null null
+2025-03-06 00:29:39 [INF] Request finished HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 3.5687ms
+2025-03-06 00:29:39 [INF] Request finished HTTP/1.1 GET http://localhost:59640/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.8153ms
+2025-03-06 00:29:39 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Product/GetProducts - null null
+2025-03-06 00:29:39 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.ProductController.GetProducts (ASP_Homework_Product)'
+2025-03-06 00:29:39 [INF] Route matched with {action = "GetProducts", controller = "Product", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.JsonResult GetProducts() on controller ASP_Homework_Product.Controllers.ProductController (ASP_Homework_Product).
+2025-03-06 00:29:39 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[ASP_Homework_Product.Models.Product, ASP_Homework_Product, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-06 00:29:39 [INF] Executed action ASP_Homework_Product.Controllers.ProductController.GetProducts (ASP_Homework_Product) in 21.6184ms
+2025-03-06 00:29:39 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.ProductController.GetProducts (ASP_Homework_Product)'
+2025-03-06 00:29:39 [INF] HTTP GET /Product/GetProducts responded 200 in 27.9060 ms
+2025-03-06 00:29:39 [INF] Request finished HTTP/1.1 GET http://localhost:59640/Product/GetProducts - 200 null application/json; charset=utf-8 28.9952ms
+2025-03-06 00:29:43 [INF] Request starting HTTP/1.1 GET http://localhost:59640/Cart - null null
+2025-03-06 00:29:43 [INF] Executing endpoint 'ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product)'
+2025-03-06 00:29:43 [INF] Route matched with {action = "Index", controller = "Cart", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ASP_Homework_Product.Controllers.CartController (ASP_Homework_Product).
+2025-03-06 00:29:43 [INF] Executing ViewResult, running view Index.
+2025-03-06 00:29:43 [INF] Executed ViewResult - view Index executed in 8.7275ms.
+2025-03-06 00:29:43 [INF] Executed action ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product) in 9.3387ms
+2025-03-06 00:29:43 [INF] Executed endpoint 'ASP_Homework_Product.Controllers.CartController.Index (ASP_Homework_Product)'
+2025-03-06 00:29:43 [INF] HTTP GET /Cart responded 200 in 14.4730 ms
+2025-03-06 00:29:43 [INF] Request finished HTTP/1.1 GET http://localhost:59640/Cart - 200 null text/html; charset=utf-8 19.8066ms
+2025-03-06 00:29:43 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_vs/browserLink - null null
+2025-03-06 00:29:43 [INF] Request starting HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-06 00:29:43 [INF] Request finished HTTP/1.1 GET http://localhost:59640/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 2.3724ms
+2025-03-06 00:29:43 [INF] Request finished HTTP/1.1 GET http://localhost:59640/_vs/browserLink - 200 null text/javascript; charset=UTF-8 18.476ms

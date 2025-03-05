@@ -5,9 +5,9 @@ namespace ASP_Homework_Product.Views.Shared.ViewComponents.CartViewComponents
     public class CartViewComponent : ViewComponent
     {
 
-        private readonly ICartsRes cartsRes;
+        private readonly ICartsRepository cartsRes;
 
-        public CartViewComponent(ICartsRes cartsRes)
+        public CartViewComponent(ICartsRepository cartsRes)
         {
             this.cartsRes = cartsRes;
         }

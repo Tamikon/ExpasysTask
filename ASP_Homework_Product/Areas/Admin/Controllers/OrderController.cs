@@ -7,9 +7,9 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrderController : Controller
     {
-        private readonly IOrdersRes ordersRes;
+        private readonly IOrdersRepository ordersRes;
 
-        public OrderController(IOrdersRes ordersRes)
+        public OrderController(IOrdersRepository ordersRes)
         {
             this.ordersRes = ordersRes;
         }

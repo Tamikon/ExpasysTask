@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ASP_Homework_Product
 {
-    public class OrdersInMemoryRes : IOrdersRes
+    public class OrdersInMemoryRepository : IOrdersRepository
     {
         private List<Order> orders = new List<Order>();
 

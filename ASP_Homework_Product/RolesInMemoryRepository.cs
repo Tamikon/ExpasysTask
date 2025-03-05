@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ASP_Homework_Product
 {
-    public class RolesInMemoryRes : IRolesRes
+    public class RolesInMemoryRepository : IRolesRepository
     {
         private readonly List<Role> roles = new List<Role>();
         public void Add(Role role)

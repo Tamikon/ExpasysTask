@@ -28,8 +28,17 @@
                             <td>@(i + 1)</td>
                             <td>@Model[i].Name</td>
                             <td>@Model[i].Cost</td>
-                            <td><a href="/admin/product/edit?productId=@Model[i].Id">Редактировать</a></td>
-                            <td><a href="/admin/product/delete?productId=@Model[i].Id">Удалить</a></td>
+                            <td>
+                                <a href="/admin/product/edit?productId=@Model[i].Id">Редактировать</a>
+                            </td>
+                            <td>
+                                <form method="post" asp-controller="Product" asp-action="Delete" style="display: inline;">
+                                    <input type="hidden" name="id" value="@Model[i].Id" />
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить этот продукт?');">
+                                        Удалить
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

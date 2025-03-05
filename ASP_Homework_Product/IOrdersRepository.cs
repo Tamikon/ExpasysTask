@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASP_Homework_Product
 {
-    public interface IOrdersRes
+    public interface IOrdersRepository
     {
         void Add(Order order);
         List<Order> GetAll();

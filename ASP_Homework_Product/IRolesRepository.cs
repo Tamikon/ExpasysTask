@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASP_Homework_Product
 {
-    public interface IRolesRes
+    public interface IRolesRepository
     {
         List<Role> GetAll();
         Role TryGetByName(string userId);

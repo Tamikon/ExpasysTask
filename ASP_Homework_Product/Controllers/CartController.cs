@@ -1,40 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_Homework_Product.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductRes productList;
-        private readonly ICartsRes cartsRes;
+        private readonly IProductRepository _productRepository;
+        private readonly ICartsRepository _cartsRepository;
 
-        public CartController(IProductRes productList, ICartsRes cartsRes)
+        public CartController(IProductRepository productRepository, ICartsRepository cartsRepository)
         {
-            this.productList = productList;
-            this.cartsRes = cartsRes;
+            this._productRepository = productRepository;
+            this._cartsRepository = cartsRepository;
         }
 
         public IActionResult Index()
         {
-            var cart = cartsRes.TryGetByUserId(Constants.UserId);
+            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
             return View(cart);
         }
-        
-        public IActionResult Add(int productId)
+
+        [HttpPost]
+        public IActionResult AddToCart(int productId)
         {
-            var product = productList.TryGetById(productId);
-            cartsRes.Add(product, Constants.UserId);
-            return RedirectToAction("Index");
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
+
+            var product = _productRepository.TryGetById(productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            _cartsRepository.Add(product, Constants.UserId);
+            return Ok();
         }
 
         public IActionResult DecreaseAmount(int productId)
         {
-            cartsRes.DecreaseAmount(productId, Constants.UserId);
+            _cartsRepository.DecreaseAmount(productId, Constants.UserId);
             return RedirectToAction("Index");
         }
 
         public IActionResult Clear()
         {
-            cartsRes.Clear(Constants.UserId);
+            _cartsRepository.Clear(Constants.UserId);
             return RedirectToAction("Index");
         }
     }
