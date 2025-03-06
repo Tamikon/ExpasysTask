@@ -4,7 +4,7 @@ namespace ASP_Homework_Product.Areas.Admin.Models
 {
     public class Role
     {
-        [Required]
+        [Key]
         public string Name { get; set; }
     }
 }

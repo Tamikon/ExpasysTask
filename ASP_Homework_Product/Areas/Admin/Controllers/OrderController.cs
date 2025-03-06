@@ -7,11 +7,11 @@ using System.Linq;
 [Area("Admin")]
 public class OrderController : Controller
 {
-    private readonly IOrdersRepository ordersRes;
+    private readonly IOrdersRepository _ordersRepository;
 
-    public OrderController(IOrdersRepository ordersRes)
+    public OrderController(IOrdersRepository ordersRepository)
     {
-        this.ordersRes = ordersRes;
+        this._ordersRepository = ordersRepository;
     }
 
     public IActionResult Index()
@@ -22,7 +22,7 @@ public class OrderController : Controller
     [HttpGet]
     public IActionResult GetOrders()
     {
-        var orders = ordersRes.GetAll();
+        var orders = _ordersRepository.GetAll();
         return Json(new { success = true, orders = orders.Select(o => new { o.Id, o.Cost, o.Status, o.CreateDateTime }) });
     }
 
@@ -35,7 +35,7 @@ public class OrderController : Controller
     [HttpGet]
     public IActionResult GetOrderDetails(Guid orderId)
     {
-        var order = ordersRes.TryGetById(orderId);
+        var order = _ordersRepository.TryGetById(orderId);
         if (order == null)
         {
             return Json(new { success = false, error = "Заказ не найден" });
@@ -45,24 +45,27 @@ public class OrderController : Controller
             success = true,
             order = new
             {
-                order.Id,
                 order.CreateDateTime,
-                User = new { order.User.Name, order.User.Address, order.User.Phone },
+                user = new { order.User.Name, order.User.Address, order.User.Phone },
                 order.Cost,
-                order.Status
+                Status = order.Status.ToString()
             }
         });
     }
 
     [HttpPost]
-    public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)
+    public IActionResult UpdateOrderStatus(Guid orderId, string status)
     {
-        var order = ordersRes.TryGetById(orderId);
+        if (!Enum.TryParse<OrderStatus>(status, true, out var parsedStatus))
+        {
+            return Json(new { success = false, error = "Неверный статус" });
+        }
+        var order = _ordersRepository.TryGetById(orderId);
         if (order == null)
         {
             return Json(new { success = false, error = "Заказ не найден" });
         }
-        ordersRes.UpdateStatus(orderId, status);
+        _ordersRepository.UpdateStatus(orderId, parsedStatus);
         return Json(new { success = true });
     }
 }

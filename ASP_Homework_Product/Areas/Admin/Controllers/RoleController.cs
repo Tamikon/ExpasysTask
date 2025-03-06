@@ -6,11 +6,11 @@ using System.Linq;
 [Area("Admin")]
 public class RoleController : Controller
 {
-    private readonly IRolesRepository rolesRes;
+    private readonly IRolesRepository _rolesRepository;
 
-    public RoleController(IRolesRepository rolesRes)
+    public RoleController(IRolesRepository rolesRepository)
     {
-        this.rolesRes = rolesRes;
+        this._rolesRepository = rolesRepository;
     }
 
     public IActionResult Index()
@@ -21,7 +21,7 @@ public class RoleController : Controller
     [HttpGet]
     public IActionResult GetRoles()
     {
-        var roles = rolesRes.GetAll();
+        var roles = _rolesRepository.GetAll();
         return Json(new { success = true, roles = roles.Select(r => new { r.Name }) });
     }
 
@@ -33,7 +33,7 @@ public class RoleController : Controller
     [HttpPost]
     public IActionResult Add(Role role)
     {
-        if (rolesRes.TryGetByName(role.Name) != null)
+        if (_rolesRepository.TryGetByName(role.Name) != null)
         {
             return Json(new { success = false, errors = new[] { "Такая роль уже существует" } });
         }
@@ -42,16 +42,16 @@ public class RoleController : Controller
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
             return Json(new { success = false, errors });
         }
-        rolesRes.Add(role);
+        _rolesRepository.Add(role);
         return Json(new { success = true });
     }
 
     [HttpPost]
     public IActionResult Remove(string roleName)
     {
-        var role = rolesRes.TryGetByName(roleName);
+        var role = _rolesRepository.TryGetByName(roleName);
         if (role == null) return Json(new { success = false, error = "Роль не найдена" });
-        rolesRes.Remove(roleName);
+        _rolesRepository.Remove(roleName);
         return Json(new { success = true });
     }
 }

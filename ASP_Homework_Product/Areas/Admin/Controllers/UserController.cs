@@ -7,11 +7,11 @@ using System.Linq;
 [Area("Admin")]
 public class UserController : Controller
 {
-    private readonly IUsersManager usersManager;
+    private readonly IUsersManager _usersManager;
 
     public UserController(IUsersManager usersManager)
     {
-        this.usersManager = usersManager;
+        this._usersManager = usersManager;
     }
 
     public IActionResult Index()
@@ -22,7 +22,7 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult GetUsers()
     {
-        var userAccounts = usersManager.GetAll();
+        var userAccounts = _usersManager.GetAll();
         return Json(new { success = true, users = userAccounts.Select(u => new { u.Name, u.Phone }) });
     }
 
@@ -34,7 +34,7 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult GetUserDetails(string name)
     {
-        var user = usersManager.TryGetByName(name);
+        var user = _usersManager.TryGetByName(name);
         if (user == null) return Json(new { success = false, error = "Пользователь не найден" });
         return Json(new { success = true, user = new { user.Name, user.Phone } });
     }
@@ -56,7 +56,7 @@ public class UserController : Controller
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
             return Json(new { success = false, errors });
         }
-        usersManager.ChangePassword(changePassword.UserName, changePassword.Password);
+        _usersManager.ChangePassword(changePassword.UserName, changePassword.Password);
         return Json(new { success = true });
     }
 
@@ -68,7 +68,7 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult GetUserRights(string name)
     {
-        var user = usersManager.TryGetByName(name);
+        var user = _usersManager.TryGetByName(name);
         if (user == null) return Json(new { success = false, error = "Пользователь не найден" });
         return Json(new { success = true, user = new { user.Name, user.IsBlocked } });
     }
@@ -76,9 +76,9 @@ public class UserController : Controller
     [HttpPost]
     public IActionResult EditRights(UserAccount updatedUser)
     {
-        var user = usersManager.TryGetByName(updatedUser.Name);
+        var user = _usersManager.TryGetByName(updatedUser.Name);
         if (user == null) return Json(new { success = false, error = "Пользователь не найден" });
-        user.IsBlocked = updatedUser.IsBlocked;
+        _usersManager.SetBlockedStatus(updatedUser.Name, updatedUser.IsBlocked); // Сохраняем изменения
         return Json(new { success = true });
     }
 }

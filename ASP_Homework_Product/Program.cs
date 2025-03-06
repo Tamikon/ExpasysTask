@@ -1,13 +1,16 @@
 using ASP_Homework_Product;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using ASP_Homework_Product.Data;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Настраиваем Serilog
 builder.Host.UseSerilog((context, loggerConfiguration) =>
 {
     loggerConfiguration
@@ -16,19 +19,32 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
         .Enrich.WithProperty("ApplicationName", "Online Shop");
 });
 
-// Регистрация зависимостей
-builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
-builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
-builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
-builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
-builder.Services.AddSingleton<IUsersManager, UsersManager>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Добавляем поддержку аутентификации через куки
+builder.Services.AddScoped<IOrdersRepository, OrdersDbRepository>();
+builder.Services.AddScoped<IProductRepository, ProductsDbRepository>();
+builder.Services.AddScoped<ICartsRepository, CartsDbRepository>();
+builder.Services.AddScoped<IRolesRepository, RolesDbRepository>();
+builder.Services.AddScoped<IUsersManager, UsersDbManager>();
+
+// куки
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login"; // Куда перенаправлять неавторизованных пользователей
-        options.LogoutPath = "/Account/Logout";
+        options.LoginPath = "/account/login";
+        options.LogoutPath = "/account/logout";
+        options.Events.OnValidatePrincipal = async context =>
+        {
+            var usersManager = context.HttpContext.RequestServices.GetRequiredService<IUsersManager>();
+            var userName = context.Principal.Identity.Name;
+            var user = usersManager.TryGetByName(userName);
+            if (user != null && user.IsBlocked)
+            {
+                context.RejectPrincipal();
+                await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            }
+        };
     });
 
 builder.Services.AddAuthorization();
@@ -36,7 +52,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Обработка ошибок
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();

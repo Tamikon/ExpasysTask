@@ -6,6 +6,8 @@ namespace ASP_Homework_Product.Models
     public class Product
     {
         private static int idCounter = 0;
+
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }

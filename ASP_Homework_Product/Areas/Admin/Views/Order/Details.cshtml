@@ -53,11 +53,12 @@
 
             function loadOrderDetails(id) {
                 $.ajax({
-                    url: "/admin/order/getorderdetails", // Изменён URL на новый метод
+                    url: "/admin/order/getorderdetails",
                     type: "GET",
                     data: { orderId: id },
                     dataType: "json",
                     success: function (response) {
+                        console.log("Load response: ", response);
                         if (response.success) {
                             let order = response.order;
                             let orderHtml = `
@@ -87,7 +88,8 @@
                             $("#error-message").html(`<p>${response.error}</p>`);
                         }
                     },
-                    error: function () {
+                    error: function (xhr) {
+                        console.log("Load error: ", xhr.responseText);
                         $("#error-message").html("<p>Ошибка загрузки деталей заказа</p>");
                     }
                 });
@@ -95,21 +97,24 @@
 
             $("#update-status").on("click", function () {
                 let status = $("#status").val();
+                console.log("Sending: orderId=" + orderId + ", status=" + status);
                 $.ajax({
                     url: "/admin/order/updateorderstatus",
                     type: "POST",
                     data: { orderId: orderId, status: status },
                     dataType: "json",
                     success: function (response) {
-                        if (response.success) {
+                        console.log("Update response: ", response);
+                        if (response.success === true) {
                             alert("Статус обновлён!");
-                            loadOrderDetails(orderId); // Перезагружаем детали
+                            loadOrderDetails(orderId); // Перезагружаем детали после обновления
                         } else {
-                            $("#error-message").html(`<p>${response.error}</p>`);
+                            $("#error-message").html(`<p>${response.error || "Неизвестная ошибка"}</p>`);
                         }
                     },
-                    error: function () {
-                        $("#error-message").html("<p>Ошибка обновления статуса</p>");
+                    error: function (xhr) {
+                        console.log("Update error: ", xhr.responseText);
+                        $("#error-message").html("<p>Ошибка обновления статуса: " + (xhr.responseText || "Сервер не ответил") + "</p>");
                     }
                 });
             });
