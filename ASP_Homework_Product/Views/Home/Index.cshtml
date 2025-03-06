@@ -27,71 +27,94 @@
             cursor: pointer;
             border: none;
         }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .cart-count {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-
     <h2 class="text-center">Ноутбуки</h2>
-
     <div id="products-container"></div>
 
     <script>
         $(document).ready(function () {
             loadProducts();
+            loadCartCount();
 
             function loadProducts() {
                 $.ajax({
-                    url: "/Product/GetProducts",
+                    url: "/Home/GetProducts",
                     type: "GET",
                     dataType: "json",
-                    success: function (products) {
-                        if (products.error) {
-                            console.error(products.error);
-                            return;
+                    success: function (response) {
+                        if (response.success) {
+                            let productsHtml = "";
+                            response.products.forEach(product => {
+                                productsHtml += `
+                                    <div class="product-card">
+                                        <img src="${product.imagePath}" alt="${product.name}">
+                                        <h5>${product.name}</h5>
+                                        <p>${product.cost} руб</p>
+                                        <button class="btn add-to-cart" data-id="${product.id}">Добавить в корзину</button>
+                                    </div>
+                                `;
+                            });
+                            $("#products-container").html(productsHtml);
+                        } else {
+                            $("#products-container").html("<p>Ошибка загрузки товаров</p>");
                         }
-
-                        let productsHtml = "";
-                        products.forEach(product => {
-                            productsHtml += `
-                                <div class="product-card">
-                                    <img src="${product.imagePath}" alt="${product.name}">
-                                    <h5>${product.name}</h5>
-                                    <p>${product.cost} руб</p>
-                                    <button class="btn add-to-cart" data-id="${product.id}">Добавить в корзину</button>
-                                </div>
-                            `;
-                        });
-
-                        $("#products-container").html(productsHtml);
                     },
                     error: function () {
-                        console.error("Ошибка загрузки товаров.");
+                        $("#products-container").html("<p>Ошибка загрузки товаров</p>");
+                    }
+                });
+            }
+
+            function loadCartCount() {
+                $.ajax({
+                    url: "/Home/GetCartCount",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#cart-count").text(response.count);
+                        } else {
+                            $("#cart-count").text("?");
+                        }
+                    },
+                    error: function () {
+                        $("#cart-count").text("?");
                     }
                 });
             }
 
             $(document).on("click", ".add-to-cart", function () {
                 let productId = $(this).data("id");
-
                 $.ajax({
                     url: "/Cart/AddToCart",
                     type: "POST",
                     data: { productId: productId },
-                    success: function () {
-                        alert("Товар добавлен в корзину!");
+                    success: function (response) {
+                        if (response.success) {
+                            loadCartCount();
+                        }
                     },
                     error: function (xhr) {
                         if (xhr.status === 401) {
                             alert("Чтобы добавлять товары в корзину, нужно войти в аккаунт.");
                             window.location.href = "/Account/Login";
                         } else {
-                            alert("Ошибка добавления в корзину.");
+                            alert("Ошибка добавления в корзину");
                         }
                     }
                 });
             });
         });
     </script>
-
 </body>
 </html>

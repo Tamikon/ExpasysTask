@@ -14,10 +14,15 @@ namespace ASP_Homework_Product.Controllers
             this._productRepository = productRepository;
         }
 
-        public ActionResult Index(int id)
+        [HttpGet]
+        public IActionResult Index(int id)
         {
             var product = _productRepository.TryGetById(id);
-            return View(product);
+            if (product == null)
+            {
+                return Json(new { success = false, error = "Товар не найден" });
+            }
+            return Json(new { success = true, product = new { product.Id, product.Name, product.Description, product.Cost, product.ImagePath } });
         }
 
         [HttpGet]

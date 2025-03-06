@@ -1,36 +1,125 @@
-﻿@model Product
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование продукта</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
-<form method="post">
-	<h3>Редактирование продукта</h3>
-	<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+        .text-danger {
+            color: red;
+        }
 
-	<input type="hidden" name="Id" value="@Model?.Id" />
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Name"></label><br />
-			<input class="form-control" type="text" asp-for="Name" value="@Model?.Name"/>
-			<span class="text-danger" asp-validation-for="Name" />
-		</div>
-	</div>
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Редактирование продукта</h3>
+        <div id="error-messages" class="text-danger"></div>
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Description"></label><br />
-			<input class="form-control" type="text" asp-for="Description" value="@Model?.Description" />
-			<span class="text-danger" asp-validation-for="Description" />
-		</div>
-	</div>
+        <input id="id" type="hidden" />
+        <div class="row">
+            <div class="col-6">
+                <label for="name">Название</label><br />
+                <input id="name" class="form-control" type="text" name="name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="description">Описание</label><br />
+                <input id="description" class="form-control" type="text" name="description" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="cost">Цена</label><br />
+                <input id="cost" class="form-control" type="number" name="cost" />
+            </div>
+        </div>
+        <div>
+            <button id="edit-btn" class="btn">Редактировать</button>
+        </div>
+    </div>
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Cost"></label><br />
-			<input type="number" class="form-control" type="text" asp-for="Cost" value="@Model?.Cost" />
-			<span class="text-danger" asp-validation-for="Cost" />
-		</div>
-	</div>
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let productId = urlParams.get("productId");
 
-	<div>
-		<button type="submit" asp-controller="Product" asp-action="Edit">Редактировать</button>
-	</div>
-</form>
+            if (!productId) {
+                $("#error-messages").html("<p>Не указан ID продукта</p>");
+                return;
+            }
+
+            loadProduct(productId);
+
+            function loadProduct(id) {
+                $.ajax({
+                    url: "/admin/product/getproduct",
+                    type: "GET",
+                    data: { productId: id },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#id").val(response.product.id);
+                            $("#name").val(response.product.name);
+                            $("#description").val(response.product.description);
+                            $("#cost").val(response.product.cost);
+                        } else {
+                            $("#error-messages").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка загрузки продукта</p>");
+                    }
+                });
+            }
+
+            $("#edit-btn").on("click", function (e) {
+                e.preventDefault();
+                let productData = {
+                    id: $("#id").val(),
+                    name: $("#name").val(),
+                    description: $("#description").val(),
+                    cost: $("#cost").val()
+                };
+                $.ajax({
+                    url: "/admin/product/edit",
+                    type: "POST",
+                    data: productData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Продукт обновлён!");
+                            window.location.href = "/admin/product";
+                        } else {
+                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
+                            $("#error-messages").html(errorHtml);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка редактирования продукта</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

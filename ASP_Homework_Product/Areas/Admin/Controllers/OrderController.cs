@@ -1,36 +1,68 @@
 ﻿using ASP_Homework_Product.Models;
+using ASP_Homework_Product;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
-namespace ASP_Homework_Product.Areas.Admin.Controllers
+[Area("Admin")]
+public class OrderController : Controller
 {
-    [Area("Admin")]
-    public class OrderController : Controller
+    private readonly IOrdersRepository ordersRes;
+
+    public OrderController(IOrdersRepository ordersRes)
     {
-        private readonly IOrdersRepository ordersRes;
+        this.ordersRes = ordersRes;
+    }
 
-        public OrderController(IOrdersRepository ordersRes)
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult GetOrders()
+    {
+        var orders = ordersRes.GetAll();
+        return Json(new { success = true, orders = orders.Select(o => new { o.Id, o.Cost, o.Status, o.CreateDateTime }) });
+    }
+
+    [HttpGet]
+    public IActionResult Details(Guid orderId)
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult GetOrderDetails(Guid orderId)
+    {
+        var order = ordersRes.TryGetById(orderId);
+        if (order == null)
         {
-            this.ordersRes = ordersRes;
+            return Json(new { success = false, error = "Заказ не найден" });
         }
-
-        public ActionResult Index()
+        return Json(new
         {
-            var orders = ordersRes.GetAll();
-            return View(orders);
-        }
+            success = true,
+            order = new
+            {
+                order.Id,
+                order.CreateDateTime,
+                User = new { order.User.Name, order.User.Address, order.User.Phone },
+                order.Cost,
+                order.Status
+            }
+        });
+    }
 
-        public ActionResult Details(Guid orderId)
+    [HttpPost]
+    public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)
+    {
+        var order = ordersRes.TryGetById(orderId);
+        if (order == null)
         {
-            var order = ordersRes.TryGetById(orderId);
-            return View(order);
+            return Json(new { success = false, error = "Заказ не найден" });
         }
-
-        public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)
-        {
-            ordersRes.UpdateStatus(orderId, status);
-            return RedirectToAction(nameof(Index));
-        }
-
+        ordersRes.UpdateStatus(orderId, status);
+        return Json(new { success = true });
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,30 +27,29 @@ namespace ASP_Homework_Product.Controllers
         public async Task<IActionResult> Login(Login login)
         {
             if (!ModelState.IsValid)
-                return View(login);
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, errors = errors });
+            }
 
             var userAccount = usersManager.TryGetByName(login.UserName);
             if (userAccount == null)
             {
-                ModelState.AddModelError("", "Такого пользователя не существует");
-                return View(login);
+                return Json(new { success = false, errors = new[] { "Такого пользователя не существует" } });
             }
 
             if (userAccount.IsBlocked)
             {
-                ModelState.AddModelError("", "Ваш аккаунт заблокирован.");
-                return View(login);
+                return Json(new { success = false, errors = new[] { "Ваш аккаунт заблокирован" } });
             }
 
             if (userAccount.Password != login.Password)
             {
-                ModelState.AddModelError("", "Неправильный пароль");
-                return View(login);
+                return Json(new { success = false, errors = new[] { "Неправильный пароль" } });
             }
 
             await AuthenticateUser(userAccount);
-
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return Json(new { success = true, redirectUrl = Url.Action(nameof(HomeController.Index), "Home") });
         }
 
         public IActionResult Register()
@@ -65,30 +65,28 @@ namespace ASP_Homework_Product.Controllers
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать.");
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newUser = new UserAccount
-                {
-                    Name = register.UserName,
-                    Password = register.Password,
-                    Phone = register.Phone
-                };
-
-                usersManager.Add(newUser);
-
-                await AuthenticateUser(newUser); // Авторизуем пользователя сразу после регистрации
-
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, errors = errors });
             }
 
-            return View(register);
+            var newUser = new UserAccount
+            {
+                Name = register.UserName,
+                Password = register.Password,
+                Phone = register.Phone
+            };
+            usersManager.Add(newUser);
+            await AuthenticateUser(newUser);
+            return Json(new { success = true, redirectUrl = Url.Action(nameof(HomeController.Index), "Home") });
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(Login));
+            return Json(new { success = true, redirectUrl = Url.Action(nameof(Login), "Account") });
         }
 
         private async Task AuthenticateUser(UserAccount user)

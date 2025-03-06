@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ASP_Homework_Product.Models;
+using System.Linq;
 
 namespace ASP_Homework_Product.Controllers
 {
@@ -20,17 +21,21 @@ namespace ASP_Homework_Product.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Buy(UserDeliveryInfo user)
         {
-
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", user);
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, errors = errors });
             }
 
             var existingCart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            if (existingCart == null || !existingCart.Items.Any())
+            {
+                return Json(new { success = false, errors = new[] { "Корзина пуста" } });
+            }
+
             var order = new Order
             {
                 User = user,
@@ -38,7 +43,7 @@ namespace ASP_Homework_Product.Controllers
             };
             _ordersRepository.Add(order);
             _cartsRepository.Clear(Constants.UserId);
-            return View();
+            return Json(new { success = true });
         }
     }
 }

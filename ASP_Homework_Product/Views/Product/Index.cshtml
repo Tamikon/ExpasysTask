@@ -1,15 +1,107 @@
-﻿@Model Product
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали товара</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .product-container {
+            text-align: center;
+            margin: 20px;
+        }
 
-<div class="row justify-content-center">
-        <div class="col-9">
-            <img class="card-img-top" src="@Model.ImagePath" />
-            <div class="сol-3">
-                <h5>@Model.Name</h5>
-                <h5>@Model.Description</h5>
-                <h5>@Model.Cost руб</h5>
+        .card-img-top {
+            max-width: 100%;
+            height: auto;
+        }
 
-                <a class="btn btn-dark" href="/cart/add?productId=@Model.Id" role="button">Добавить в корзину</a>
-                <a class="btn btn-dark" href="/home/index" role="button">Вернуться к списку товаров</a>
-            </div>
+        .btn {
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-container">
+        <h3>Детали товара</h3>
+        <div id="product-details"></div>
+        <div id="product-actions" style="display: none;">
+            <button id="add-to-cart" class="btn">Добавить в корзину</button>
+            <a href="/home/index" class="btn">Вернуться к списку товаров</a>
         </div>
-</div>
+        <div id="error-message" class="text-danger"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let productId = urlParams.get("id");
+
+            if (!productId) {
+                $("#error-message").html("<p>Не указан ID товара</p>");
+                return;
+            }
+
+            loadProduct(productId);
+
+            function loadProduct(id) {
+                $.ajax({
+                    url: "/Product/Index",
+                    type: "GET",
+                    data: { id: id },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let productHtml = `
+                                <img class="card-img-top" src="${response.product.imagePath}" alt="${response.product.name}" />
+                                <h5>${response.product.name}</h5>
+                                <h5>${response.product.description}</h5>
+                                <h5>${response.product.cost} руб</h5>
+                            `;
+                            $("#product-details").html(productHtml);
+                            $("#product-actions").show();
+                            $("#add-to-cart").data("id", response.product.id);
+                        } else {
+                            $("#error-message").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function () {
+                        $("#error-message").html("<p>Ошибка загрузки товара</p>");
+                    }
+                });
+            }
+
+            $("#add-to-cart").on("click", function () {
+                let productId = $(this).data("id");
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    type: "POST",
+                    data: { productId: productId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Товар добавлен в корзину!");
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert("Войдите в аккаунт для добавления товаров.");
+                            window.location.href = "/Account/Login";
+                        } else {
+                            alert("Ошибка добавления в корзину");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

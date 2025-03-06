@@ -1,34 +1,100 @@
-﻿@model List<UserAccount>
-<div class="row">
-    @await Html.PartialAsync("AdminSideBar")
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список пользователей</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    <div class="col-9">
-        <div class="row">
-            <h3>Список пользователей</h3>
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-3">
+            <div class="row"><a href="/admin/order">Заказы</a></div>
+            <div class="row"><a href="/admin/user">Пользователи</a></div>
+            <div class="row"><a href="/admin/role">Роли</a></div>
+            <div class="row"><a href="/admin/product">Продукты</a></div>
         </div>
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Логин</th>
-                        <th>Телефон</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
-
-                    {
-                        <tr>
-                            <td>@(i + 1)</td>
-                            <td>@Model[i].Name</td>
-                            <td>@Model[i].Phone</td>
-                            <td><a href="/admin/user/Details?name=@Model[i].Name">Подробнее</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="col-9">
+            <h3>Список пользователей</h3>
+            <div id="users-container"></div>
         </div>
     </div>
-</div>
+
+    <script>
+        $(document).ready(function () {
+            loadUsers();
+
+            function loadUsers() {
+                $.ajax({
+                    url: "/admin/user/getusers",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let usersHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Логин</th>
+                                            <th>Телефон</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            response.users.forEach((user, index) => {
+                                usersHtml += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${user.name}</td>
+                                        <td>${user.phone}</td>
+                                        <td><a href="/admin/user/details?name=${user.name}" class="btn">Подробнее</a></td>
+                                    </tr>
+                                `;
+                            });
+                            usersHtml += `</tbody></table>`;
+                            $("#users-container").html(usersHtml);
+                        } else {
+                            $("#users-container").html("<p>Ошибка загрузки пользователей</p>");
+                        }
+                    },
+                    error: function () {
+                        $("#users-container").html("<p>Ошибка загрузки пользователей</p>");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

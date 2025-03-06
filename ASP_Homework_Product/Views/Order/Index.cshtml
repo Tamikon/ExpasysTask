@@ -1,37 +1,106 @@
-﻿@model UserDeliveryInfo
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
-<form method="post">
-	<div class="row text-center">
-		<div class="col">
+        .text-danger {
+            color: red;
+        }
 
-			<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
 
-			<div class="row">
-				<div class="col-6">
-					<label asp-for="Name">Введите ФИО</label><br />
-					<input class="form-control" type="text" asp-for="Name" />
-					<span class="text-danger" asp-validation-for="Name" />
-				</div>
-			</div>
+        .row {
+            margin: 10px 0;
+        }
 
-			<div class="row">
-				<div class="col-6">
-					<label asp-for="Address">Введите адрес доставки</label><br />
-					<input class="form-control" type="text" asp-for="Address" />
-					<span class="text-danger" asp-validation-for="Address" />
-				</div>
-			</div>
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h3>Оформление заказа</h3>
+        <div id="error-messages" class="text-danger"></div>
 
-			<div class="row">
-				<div class="col-6">
-					<label asp-for="Phone">Введите телефон</label><br />
-					<input class="form-control" type="text" asp-for="Phone" />
-					<span class="text-danger" asp-validation-for="Phone" />
-				</div>
-			</div>
-			<br />
+        <div class="row">
+            <div class="col-6">
+                <label for="name">Введите ФИО</label><br />
+                <input id="name" class="form-control" type="text" name="name" />
+            </div>
+        </div>
 
-			<button class="btn btn-success type="submit" asp-controller="Order" asp-action="Buy">Оформить заказ</button>
-		</div>
-	</div>
-</form>
+        <div class="row">
+            <div class="col-6">
+                <label for="address">Введите адрес доставки</label><br />
+                <input id="address" class="form-control" type="text" name="address" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label for="phone">Введите телефон</label><br />
+                <input id="phone" class="form-control" type="text" name="phone" />
+            </div>
+        </div>
+
+        <div>
+            <button id="buy-btn" class="btn">Оформить заказ</button>
+        </div>
+
+        <div id="success-message" style="display: none;">
+            <h3>Спасибо за покупку!</h3>
+            <a href="/home/index" class="btn">Вернуться к товарам</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#buy-btn").on("click", function (e) {
+                e.preventDefault();
+
+                let orderData = {
+                    name: $("#name").val(),
+                    address: $("#address").val(),
+                    phone: $("#phone").val()
+                };
+
+                $.ajax({
+                    url: "/Order/Buy",
+                    type: "POST",
+                    data: orderData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#error-messages").hide();
+                            $(".container > *:not(#success-message)").hide();
+                            $("#success-message").show();
+                        } else {
+                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
+                            $("#error-messages").html(errorHtml).show();
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка при оформлении заказа. Попробуйте позже.</p>").show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

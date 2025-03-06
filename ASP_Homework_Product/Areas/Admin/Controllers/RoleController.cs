@@ -1,48 +1,57 @@
 ﻿using ASP_Homework_Product.Areas.Admin.Models;
+using ASP_Homework_Product;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace ASP_Homework_Product.Areas.Admin.Controllers
+[Area("Admin")]
+public class RoleController : Controller
 {
-    [Area("Admin")]
-    public class RoleController : Controller
+    private readonly IRolesRepository rolesRes;
+
+    public RoleController(IRolesRepository rolesRes)
     {
-        private readonly IRolesRepository rolesRes;
+        this.rolesRes = rolesRes;
+    }
 
-        public RoleController(IRolesRepository rolesRes)
-        {
-            this.rolesRes = rolesRes;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public ActionResult Index()
-        {
-            var roles = rolesRes.GetAll();
-            return View(roles);
-        }
+    [HttpGet]
+    public IActionResult GetRoles()
+    {
+        var roles = rolesRes.GetAll();
+        return Json(new { success = true, roles = roles.Select(r => new { r.Name }) });
+    }
 
-        public IActionResult Remove(string roleName)
-        {
-            rolesRes.Remove(roleName);
-            return RedirectToAction(nameof(Index));
-        }
+    public IActionResult Add()
+    {
+        return View();
+    }
 
-        public ActionResult Add()
+    [HttpPost]
+    public IActionResult Add(Role role)
+    {
+        if (rolesRes.TryGetByName(role.Name) != null)
         {
-            return View();
+            return Json(new { success = false, errors = new[] { "Такая роль уже существует" } });
         }
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            return Json(new { success = false, errors });
+        }
+        rolesRes.Add(role);
+        return Json(new { success = true });
+    }
 
-        [HttpPost]
-        public ActionResult Add(Role role)
-        {
-            if (rolesRes.TryGetByName(role.Name) != null)
-            {
-                ModelState.AddModelError("", "Такая роль уже существует.");
-            }
-            if (ModelState.IsValid)
-            {
-                rolesRes.Add(role);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(role);
-        }
+    [HttpPost]
+    public IActionResult Remove(string roleName)
+    {
+        var role = rolesRes.TryGetByName(roleName);
+        if (role == null) return Json(new { success = false, error = "Роль не найдена" });
+        rolesRes.Remove(roleName);
+        return Json(new { success = true });
     }
 }

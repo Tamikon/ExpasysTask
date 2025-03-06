@@ -1,34 +1,72 @@
 ﻿<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Expasys Task</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/home/index">Expasys Task</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarCollapse">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                        <a class="nav-link text-dark" href="/home/index">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">
-                            Корзина @await Component.InvokeAsync("Cart")
-                        </a>
+                        <a class="nav-link text-dark" href="/cart/index">Корзина (<span id="cart-count">0</span>)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+                        <a class="nav-link text-dark" href="/account/login">Вход</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Order" asp-action="Index">Администратор</a>
+                        <a class="nav-link text-dark" href="/admin/order/index">Администратор</a>
                     </li>
                     <li class="nav-item">
-                        <form asp-controller="Account" asp-action="Logout" method="post">
-                            <button type="submit" class="btn btn-outline-danger">Выход</button>
-                        </form>
+                        <button id="logout-btn" class="btn btn-outline-danger">Выход</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadCartCount();
+
+            function loadCartCount() {
+                $.ajax({
+                    url: "/Cart/GetCartCount",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        $("#cart-count").text(response.count);
+                    },
+                    error: function () {
+                        $("#cart-count").text("?");
+                    }
+                });
+            }
+
+            $("#logout-btn").on("click", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Account/Logout",
+                    type: "POST",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        }
+                    },
+                    error: function () {
+                        alert("Ошибка при выходе из системы");
+                    }
+                });
+            });
+
+            $(document).on("cart-updated", function () {
+                loadCartCount();
+            });
+        });
+    </script>
 </header>

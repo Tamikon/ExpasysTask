@@ -1,42 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ASP_Homework_Product.Models;
+using ASP_Homework_Product;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ASP_Homework_Product.Models;
 
-namespace ASP_Homework_Product.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly IProductRepository _productRepository;
+    private readonly ICartsRepository _cartsRepository;
+
+    public HomeController(IProductRepository productRepository, ICartsRepository cartsRepository)
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ICartsRepository _cartsRepository;
+        this._productRepository = productRepository;
+        this._cartsRepository = cartsRepository;
+    }
 
-        public HomeController(IProductRepository productRepository, ICartsRepository cartsRepository)
-        {
-            this._productRepository = productRepository;
-            this._cartsRepository = cartsRepository;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
-            ViewBag.ProductCount = cart?.Amount;
-            var products = _productRepository.GetProducts();
-            return View(products);
-        }
+    [HttpGet]
+    public IActionResult GetProducts()
+    {
+        var products = _productRepository.GetProducts();
+        return Json(new { success = true, products = products.Select(p => new { p.Id, p.Name, p.Cost, p.ImagePath }) });
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+    [HttpGet]
+    public IActionResult GetCartCount()
+    {
+        var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+        return Json(new { success = true, count = cart?.Amount ?? 0 });
+    }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

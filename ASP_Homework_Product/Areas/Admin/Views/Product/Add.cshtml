@@ -1,34 +1,91 @@
-﻿@model Product
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание нового продукта</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
-<form method="post">
-	<h3>Создание нового продукта</h3>
-	<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+        .text-danger {
+            color: red;
+        }
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Name"></label><br />
-			<input class="form-control" type="text" asp-for="Name" />
-			<span class="text-danger" asp-validation-for="Name" />
-		</div>
-	</div>
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Description"></label><br />
-			<input class="form-control" type="text" asp-for="Description" />
-			<span class="text-danger" asp-validation-for="Description" />
-		</div>
-	</div>
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Создание нового продукта</h3>
+        <div id="error-messages" class="text-danger"></div>
 
-	<div class="row">
-		<div class="col-6">
-			<label asp-for="Cost"></label><br />
-			<input type="number" class="form-control" type="text" asp-for="Cost" />
-			<span class="text-danger" asp-validation-for="Cost" />
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-6">
+                <label for="name">Название</label><br />
+                <input id="name" class="form-control" type="text" name="name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="description">Описание</label><br />
+                <input id="description" class="form-control" type="text" name="description" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="cost">Цена</label><br />
+                <input id="cost" class="form-control" type="number" name="cost" />
+            </div>
+        </div>
+        <div>
+            <button id="add-btn" class="btn">Создать</button>
+        </div>
+    </div>
 
-	<div>
-		<button type="submit" asp-controller="Product" asp-action="Add">Создать</button>
-	</div>
-</form>
+    <script>
+        $(document).ready(function () {
+            $("#add-btn").on("click", function (e) {
+                e.preventDefault();
+                let productData = {
+                    name: $("#name").val(),
+                    description: $("#description").val(),
+                    cost: $("#cost").val()
+                };
+                $.ajax({
+                    url: "/admin/product/add",
+                    type: "POST",
+                    data: productData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Продукт добавлен!");
+                            window.location.href = "/admin/product";
+                        } else {
+                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
+                            $("#error-messages").html(errorHtml);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка добавления продукта</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

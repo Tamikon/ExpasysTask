@@ -1,44 +1,103 @@
-﻿@model Register
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
+        .text-danger {
+            color: red;
+        }
 
-<form method="post">
-    <div>
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
         <h3>Регистрация</h3>
-    </div>
+        <div id="error-messages" class="text-danger"></div>
 
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col-6">
+                <label for="userName">Email</label><br />
+                <input id="userName" class="form-control" type="text" name="userName" autocomplete="username" />
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="UserName"></label><br />
-            <input class="form-control" asp-for="UserName" autocomplete="username" />
-            <span class="text-danger" asp-validation-for="UserName"></span>
+        <div class="row">
+            <div class="col-6">
+                <label for="password">Пароль</label><br />
+                <input id="password" class="form-control" type="password" name="password" autocomplete="new-password" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label for="confirmPassword">Подтверждение пароля</label><br />
+                <input id="confirmPassword" class="form-control" type="password" name="confirmPassword" autocomplete="new-password" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label for="phone">Телефон</label><br />
+                <input id="phone" class="form-control" type="text" name="phone" />
+            </div>
+        </div>
+
+        <div>
+            <button id="register-btn" class="btn">Зарегистрироваться</button>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="Password"></label><br />
-            <input type="password" class="form-control" asp-for="Password" autocomplete="new-password" />
-            <span class="text-danger" asp-validation-for="Password"></span>
-        </div>
-    </div>
+    <script>
+        $(document).ready(function () {
+            $("#register-btn").on("click", function (e) {
+                e.preventDefault();
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="Phone"></label><br />
-            <input type="password" class="form-control" asp-for="Phone" autocomplete="new-password" />
-            <span class="text-danger" asp-validation-for="Phone"></span>
-        </div>
-    </div>
+                let registerData = {
+                    userName: $("#userName").val(),
+                    password: $("#password").val(),
+                    confirmPassword: $("#confirmPassword").val(),
+                    phone: $("#phone").val()
+                };
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="ConfirmPassword"></label><br />
-            <input type="password" class="form-control" asp-for="ConfirmPassword" autocomplete="new-password" />
-            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
-</form>
+                $.ajax({
+                    url: "/Account/Register",
+                    type: "POST",
+                    data: registerData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
+                            $("#error-messages").html(errorHtml);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка при регистрации. Попробуйте позже.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

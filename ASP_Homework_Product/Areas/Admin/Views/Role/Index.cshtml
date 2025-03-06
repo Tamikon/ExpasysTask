@@ -1,35 +1,127 @@
-﻿@using ASP_Homework_Product.Areas.Admin.Models
-@model List<Role>
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список ролей</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-<div class="row">
-    @await Html.PartialAsync("AdminSideBar")
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-    <div class="col-9">
-        <div class="row">
-            <h3>Список ролей</h3>
+        .row {
+            display: flex;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-3">
+            <div class="row"><a href="/admin/order">Заказы</a></div>
+            <div class="row"><a href="/admin/user">Пользователи</a></div>
+            <div class="row"><a href="/admin/role">Роли</a></div>
+            <div class="row"><a href="/admin/product">Продукты</a></div>
         </div>
-        <a href="/admin/role/add">Добавить новую роль</a>
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Название</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        <tr>
-                            <td>@(i + 1)</td>
-                            <td>@Model[i].Name</td>
-                            <td><a class="btn btn-danger" href="/admin/Role/remove?roleName=@Model[i].Name">Удалить</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="col-9">
+            <h3>Список ролей</h3>
+            <a href="/admin/role/add" class="btn">Добавить новую роль</a>
+            <div id="roles-container"></div>
         </div>
     </div>
-</div>
+
+    <script>
+        $(document).ready(function () {
+            loadRoles();
+
+            function loadRoles() {
+                $.ajax({
+                    url: "/admin/role/getroles",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let rolesHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Название</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            response.roles.forEach((role, index) => {
+                                rolesHtml += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${role.name}</td>
+                                        <td><button class="btn btn-danger delete-role" data-name="${role.name}">Удалить</button></td>
+                                    </tr>
+                                `;
+                            });
+                            rolesHtml += `</tbody></table>`;
+                            $("#roles-container").html(rolesHtml);
+                        } else {
+                            $("#roles-container").html("<p>Ошибка загрузки ролей</p>");
+                        }
+                    },
+                    error: function () {
+                        $("#roles-container").html("<p>Ошибка загрузки ролей</p>");
+                    }
+                });
+            }
+
+            $(document).on("click", ".delete-role", function () {
+                let roleName = $(this).data("name");
+                if (confirm("Удалить эту роль?")) {
+                    $.ajax({
+                        url: "/admin/role/remove",
+                        type: "POST",
+                        data: { roleName: roleName },
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.success) {
+                                loadRoles(); // Перезагружаем список
+                            } else {
+                                alert(response.error);
+                            }
+                        },
+                        error: function () {
+                            alert("Ошибка удаления роли");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

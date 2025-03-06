@@ -1,39 +1,105 @@
-﻿@using ASP_Homework_Product.Areas.Admin.Helpers
-@model List<Order>
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список заказов</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-<div class="row">
-    @await Html.PartialAsync("AdminSideBar")
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-    <div class="col-9">
-        <div class="row">
-            <h3>Список заказов</h3>
+        .row {
+            display: flex;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-3">
+            <div class="row"><a href="/admin/order">Заказы</a></div>
+            <div class="row"><a href="/admin/user">Пользователи</a></div>
+            <div class="row"><a href="/admin/role">Роли</a></div>
+            <div class="row"><a href="/admin/product">Продукты</a></div>
         </div>
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Сумма</th>
-                        <th>Статус</th>
-                        <th>Дата</th>
-                        <th>Время</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
 
-                    {
-                        <tr>
-                            <td>@(i + 1)</td>
-                            <td>@Model[i].Cost</td>
-                            <td>@EnumHelper.GetDisplayName(Model[i].Status)</td>
-                            <td>@Model[i].CreateDateTime.ToString("d")</td>
-                            <td>@Model[i].CreateDateTime.ToString("t")</td>
-                            <td><a href="/admin/order/Details?orderId=@Model[i].Id">Подробнее</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="col-9">
+            <h3>Список заказов</h3>
+            <div id="orders-container"></div>
         </div>
     </div>
-</div>
+
+    <script>
+        $(document).ready(function () {
+            loadOrders();
+
+            function loadOrders() {
+                $.ajax({
+                    url: "/admin/order/getorders",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let ordersHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Сумма</th>
+                                            <th>Статус</th>
+                                            <th>Дата</th>
+                                            <th>Время</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            response.orders.forEach((order, index) => {
+                                ordersHtml += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${order.cost}</td>
+                                        <td>${order.status}</td>
+                                        <td>${new Date(order.createDateTime).toLocaleDateString()}</td>
+                                        <td>${new Date(order.createDateTime).toLocaleTimeString()}</td>
+                                        <td><a href="/admin/order/details?orderId=${order.id}" class="btn">Подробнее</a></td>
+                                    </tr>
+                                `;
+                            });
+                            ordersHtml += `</tbody></table>`;
+                            $("#orders-container").html(ordersHtml);
+                        } else {
+                            $("#orders-container").html("<p>Ошибка загрузки заказов</p>");
+                        }
+                    },
+                    error: function () {
+                        $("#orders-container").html("<p>Ошибка загрузки заказов</p>");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

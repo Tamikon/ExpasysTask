@@ -1,24 +1,94 @@
-﻿@model UserAccount
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали пользователя</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-<div class="row">
-    <div class="col-6">
-        <table class="table">
-            <tr>
-                <td>Логин</td>
-                <td>@Model.Name</td>
-            </tr>
-            <tr>
-                <td>Телефон</td>
-                <td>@Model.Phone</td>
-            </tr>
-            <tr>
-        </table>
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Детали пользователя</h3>
+        <div id="user-details"></div>
+        <div id="error-message" style="color: red;"></div>
+
+        <!-- Выпадающее меню с использованием Bootstrap -->
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="actions-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Действия
+            </button>
+            <div class="dropdown-menu" aria-labelledby="actions-btn">
+                <a class="dropdown-item" id="change-password" href="#">Смена пароля</a>
+                <a class="dropdown-item" id="edit-rights" href="#">Права доступа</a>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Действия
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-name="@Model.Name">Смена пароля</a>
-        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-name="@Model.Name">Права доступа</a>
-    </div>
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let name = urlParams.get("name");
+
+            if (!name) {
+                $("#error-message").html("<p>Не указан логин пользователя</p>");
+                return;
+            }
+
+            loadUserDetails(name);
+
+            function loadUserDetails(name) {
+                $.ajax({
+                    url: "/admin/user/getuserdetails",
+                    type: "GET",
+                    data: { name: name },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let userHtml = `
+                                <table class="table">
+                                    <tr><td>Логин</td><td>${response.user.name}</td></tr>
+                                    <tr><td>Телефон</td><td>${response.user.phone}</td></tr>
+                                </table>
+                            `;
+                            $("#user-details").html(userHtml);
+                        } else {
+                            $("#error-message").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function () {
+                        $("#error-message").html("<p>Ошибка загрузки деталей</p>");
+                    }
+                });
+            }
+
+            $("#change-password").on("click", function (e) {
+                e.preventDefault();
+                window.location.href = `/admin/user/changepassword?name=${name}`;
+            });
+
+            $("#edit-rights").on("click", function (e) {
+                e.preventDefault();
+                window.location.href = `/admin/user/editrights?name=${name}`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,48 +1,131 @@
-﻿@model List<Product>
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список продуктов</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-<div class="row">
-    @await Html.PartialAsync("AdminSideBar")
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-    <div class="col-9">
-        <div class="row">
-            <h3>Список продуктов</h3>
+        .row {
+            display: flex;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-3">
+            <div class="row"><a href="/admin/order">Заказы</a></div>
+            <div class="row"><a href="/admin/user">Пользователи</a></div>
+            <div class="row"><a href="/admin/role">Роли</a></div>
+            <div class="row"><a href="/admin/product">Продукты</a></div>
         </div>
-
-        <a href="/admin/product/add">Добавить новый продукт</a>
-
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Название</th>
-                        <th>Цена</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        <tr>
-                            <td>@(i + 1)</td>
-                            <td>@Model[i].Name</td>
-                            <td>@Model[i].Cost</td>
-                            <td>
-                                <a href="/admin/product/edit?productId=@Model[i].Id">Редактировать</a>
-                            </td>
-                            <td>
-                                <form method="post" asp-controller="Product" asp-action="Delete" style="display: inline;">
-                                    <input type="hidden" name="id" value="@Model[i].Id" />
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить этот продукт?');">
-                                        Удалить
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="col-9">
+            <h3>Список продуктов</h3>
+            <a href="/admin/product/add" class="btn">Добавить новый продукт</a>
+            <div id="products-container"></div>
         </div>
     </div>
-</div>
+
+    <script>
+        $(document).ready(function () {
+            loadProducts();
+
+            function loadProducts() {
+                $.ajax({
+                    url: "/admin/product/getproducts",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            let productsHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Название</th>
+                                            <th>Цена</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            response.products.forEach((product, index) => {
+                                productsHtml += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${product.name}</td>
+                                        <td>${product.cost}</td>
+                                        <td><a href="/admin/product/edit?productId=${product.id}" class="btn">Редактировать</a></td>
+                                        <td><button class="btn btn-danger delete-product" data-id="${product.id}">Удалить</button></td>
+                                    </tr>
+                                `;
+                            });
+                            productsHtml += `</tbody></table>`;
+                            $("#products-container").html(productsHtml);
+                        } else {
+                            $("#products-container").html("<p>Ошибка загрузки продуктов</p>");
+                        }
+                    },
+                    error: function () {
+                        $("#products-container").html("<p>Ошибка загрузки продуктов</p>");
+                    }
+                });
+            }
+
+            $(document).on("click", ".delete-product", function () {
+                let productId = $(this).data("id");
+                if (confirm("Удалить этот продукт?")) {
+                    $.ajax({
+                        url: "/admin/product/delete",
+                        type: "POST",
+                        data: { id: productId },
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.success) {
+                                loadProducts();
+                            } else {
+                                alert(response.error);
+                            }
+                        },
+                        error: function () {
+                            alert("Ошибка удаления продукта");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

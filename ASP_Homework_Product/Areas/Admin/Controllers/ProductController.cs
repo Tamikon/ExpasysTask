@@ -1,66 +1,78 @@
 ﻿using ASP_Homework_Product.Models;
+using ASP_Homework_Product;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace ASP_Homework_Product.Areas.Admin.Controllers
+[Area("Admin")]
+public class ProductController : Controller
 {
-    [Area("Admin")]
-    public class ProductController : Controller
+    private readonly IProductRepository _productsRepository;
+
+    public ProductController(IProductRepository _productRepository)
     {
-        private readonly IProductRepository _productsRepository;
+        this._productsRepository = _productRepository;
+    }
 
-        public ProductController(IProductRepository _productRepository)
-        {
-            this._productsRepository = _productRepository;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public ActionResult Index()
-        {
-            var products = _productsRepository.GetProducts();
-            return View(products);
-        }
+    [HttpGet]
+    public IActionResult GetProducts()
+    {
+        var products = _productsRepository.GetProducts();
+        return Json(new { success = true, products = products.Select(p => new { p.Id, p.Name, p.Cost }) });
+    }
 
-        public ActionResult Add()
-        {
-            return View();
-        }
+    public IActionResult Add()
+    {
+        return View();
+    }
 
-        [HttpPost]
-        public ActionResult Add(Product product)
+    [HttpPost]
+    public IActionResult Add(Product product)
+    {
+        if (!ModelState.IsValid)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(product);
-            }
-            _productsRepository.Add(product);
-            return RedirectToAction(nameof(Index));
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            return Json(new { success = false, errors });
         }
+        _productsRepository.Add(product);
+        return Json(new { success = true });
+    }
 
-        public ActionResult Edit(int productId)
-        {
-            var product = _productsRepository.TryGetById(productId);
-            return View(product);
-        }
+    public IActionResult Edit(int productId)
+    {
+        return View();
+    }
 
-        [HttpPost]
-        public ActionResult Edit(Product product)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(product);
-            }
-            _productsRepository.Update(product);
-            return RedirectToAction(nameof(Index));
-        }
+    [HttpGet]
+    public IActionResult GetProduct(int productId)
+    {
+        var product = _productsRepository.TryGetById(productId);
+        if (product == null) return Json(new { success = false, error = "Продукт не найден" });
+        return Json(new { success = true, product = new { product.Id, product.Name, product.Description, product.Cost } });
+    }
 
-        [HttpPost]
-        public IActionResult Delete(int id)
+    [HttpPost]
+    public IActionResult Edit(Product product)
+    {
+        if (!ModelState.IsValid)
         {
-            var product = _productsRepository.TryGetById(id);
-            if (product != null)
-            {
-                _productsRepository.Delete(id);
-            }
-            return RedirectToAction(nameof(Index));
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            return Json(new { success = false, errors });
         }
+        _productsRepository.Update(product);
+        return Json(new { success = true });
+    }
+
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var product = _productsRepository.TryGetById(id);
+        if (product == null) return Json(new { success = false, error = "Продукт не найден" });
+        _productsRepository.Delete(id);
+        return Json(new { success = true });
     }
 }

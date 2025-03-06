@@ -1,17 +1,106 @@
-﻿@model UserAccount
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование прав</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
-<h3>Редактирование прав доступа для @Model.Name</h3>
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
 
-<form method="post">
-    <input type="hidden" asp-for="Name" />
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3 id="title"></h3>
+        <div id="error-messages" style="color: red;"></div>
 
-    <div>
-        <label>Статус пользователя:</label>
-        <select asp-for="IsBlocked" class="form-control">
-            <option value="false">Активен</option>
-            <option value="true">Заблокирован</option>
-        </select>
+        <input id="name" type="hidden" />
+        <div class="row">
+            <label>Статус пользователя:</label>
+            <select id="isBlocked" class="form-control">
+                <option value="false">Активен</option>
+                <option value="true">Заблокирован</option>
+            </select>
+        </div>
+        <div>
+            <button id="save-btn" class="btn">Сохранить</button>
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let name = urlParams.get("name");
+
+            if (!name) {
+                $("#error-messages").html("<p>Не указан логин пользователя</p>");
+                return;
+            }
+
+            loadUserRights(name);
+
+            function loadUserRights(name) {
+                $.ajax({
+                    url: "/admin/user/getuserrights",
+                    type: "GET",
+                    data: { name: name },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#title").text(`Редактирование прав доступа для ${response.user.name}`);
+                            $("#name").val(response.user.name);
+                            $("#isBlocked").val(response.user.isBlocked.toString());
+                        } else {
+                            $("#error-messages").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка загрузки прав</p>");
+                    }
+                });
+            }
+
+            $("#save-btn").on("click", function (e) {
+                e.preventDefault();
+                let rightsData = {
+                    name: $("#name").val(),
+                    isBlocked: $("#isBlocked").val() === "true"
+                };
+                $.ajax({
+                    url: "/admin/user/editrights",
+                    type: "POST",
+                    data: rightsData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Права обновлены!");
+                            window.location.href = "/admin/user";
+                        } else {
+                            $("#error-messages").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка сохранения прав</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

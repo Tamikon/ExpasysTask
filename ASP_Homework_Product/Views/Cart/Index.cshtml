@@ -1,48 +1,168 @@
-﻿@model Cart
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
 
-@if (Model == null || Model.Items.Count == 0)
-{
-    <h3>Корзина пустая</h3>
-}
-else
-{
-    <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Цена, руб</th>
-                        <th>Количество</th>
-                        <th>Стоимость</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
-                        <tr>
-                            <td>@item.Product.Name</td>
-                            <td>@item.Product.Cost</td>
-                            <td>@item.Amount</td>
-                            <td>@item.Cost</td>
-                            <td>
-                                <a href="/cart/decreaseAmount?productId=@item.Product.Id" class="btn btn-primary">-</a>
-                                <a href="/cart/add?productId=@item.Product.Id" class="btn btn-success">+</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="text-right">
-                <h3>Итого:</h3>
-                <h3>@Model.Cost</h3>
-            </div>
-            <div class="text-center">
-                <a href="/home/index" class="btn btn-primary">Вернуться к списку товаров</a>
-                <a href="/order/index" class="btn btn-success">Оформить заказ</a>
-                <a href="/cart/clear" class="btn btn-danger">Очистить корзину</a>
-            </div>
-        </div>
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>Корзина</h3>
+    <div id="cart-container">
+
     </div>
-}
+    <div id="cart-actions" class="text-center" style="display: none;">
+        <a href="/home/index" class="btn btn-primary">Вернуться к списку товаров</a>
+        <a href="/order/index" class="btn btn-success">Оформить заказ</a>
+        <button id="clear-cart" class="btn btn-danger">Очистить корзину</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            loadCart();
+
+            function loadCart() {
+                $.ajax({
+                    url: "/Cart/GetCart",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        let cartHtml = "";
+                        if (!data.items || data.items.length === 0) {
+                            cartHtml = "<h3>Корзина пустая</h3>";
+                            $("#cart-actions").hide();
+                        } else {
+                            cartHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Цена, руб</th>
+                                            <th>Количество</th>
+                                            <th>Стоимость</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            data.items.forEach(item => {
+                                cartHtml += `
+                                    <tr>
+                                        <td>${item.product.name}</td>
+                                        <td>${item.product.cost}</td>
+                                        <td>${item.amount}</td>
+                                        <td>${item.cost}</td>
+                                        <td>
+                                            <button class="btn btn-primary decrease" data-id="${item.product.id}">-</button>
+                                            <button class="btn btn-success add" data-id="${item.product.id}">+</button>
+                                        </td>
+                                    </tr>
+                                `;
+                            });
+                            cartHtml += `
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <h3>Итого: ${data.cost}</h3>
+                                </div>
+                            `;
+                            $("#cart-actions").show();
+                        }
+                        $("#cart-container").html(cartHtml);
+                    },
+                    error: function () {
+                        $("#cart-container").html("<h3>Ошибка загрузки корзины</h3>");
+                    }
+                });
+            }
+
+            $(document).on("click", ".decrease", function () {
+                let productId = $(this).data("id");
+                $.ajax({
+                    url: "/Cart/DecreaseAmount",
+                    type: "POST",
+                    data: { productId: productId },
+                    success: function (response) {
+                        if (response.success) {
+                            loadCart();
+                        }
+                    },
+                    error: function () {
+                        alert("Ошибка при уменьшении количества");
+                    }
+                });
+            });
+
+            $(document).on("click", ".add", function () {
+                let productId = $(this).data("id");
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    type: "POST",
+                    data: { productId: productId },
+                    success: function (response) {
+                        if (response.success) {
+                            loadCart();
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert("Войдите в аккаунт для добавления товаров.");
+                            window.location.href = "/Account/Login";
+                        } else {
+                            alert("Ошибка добавления в корзину");
+                        }
+                    }
+                });
+            });
+
+            $("#clear-cart").on("click", function () {
+                $.ajax({
+                    url: "/Cart/Clear",
+                    type: "POST",
+                    success: function (response) {
+                        if (response.success) {
+                            loadCart();
+                        }
+                    },
+                    error: function () {
+                        alert("Ошибка очистки корзины");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

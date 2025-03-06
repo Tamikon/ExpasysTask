@@ -1,37 +1,96 @@
-﻿@model Login
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
 
-<form method="post">
-    <div>
+        .text-danger {
+            color: red;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
         <h3>Вход</h3>
-    </div>
+        <div id="error-messages" class="text-danger"></div>
 
-    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col-6">
+                <label for="userName">Email</label><br />
+                <input id="userName" class="form-control" type="text" name="userName" />
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="UserName"></label><br />
-            <input class="form-control" type="text" asp-for="UserName" />
-            <span class="text-danger" asp-validation-for="UserName" />
+        <div class="row">
+            <div class="col-6">
+                <label for="password">Пароль</label><br />
+                <input id="password" class="form-control" type="password" name="password" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label>Запомнить меня</label>
+                <input id="rememberMe" type="checkbox" name="rememberMe" />
+                <a href="/account/register">Регистрация</a>
+            </div>
+        </div>
+
+        <div>
+            <button id="login-btn" class="btn">Войти</button>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-6">
-            <label asp-for="Password"></label><br />
-            <input class="form-control" type="password" asp-for="Password" />
-            <span class="text-danger" asp-validation-for="Password" />
-        </div>
-    </div>
+    <script>
+        $(document).ready(function () {
+            $("#login-btn").on("click", function (e) {
+                e.preventDefault();
 
-    <div class="row">
-        <div class="col-6">
-            <label>Запомнить меня</label>
-            <input type="checkbox" name="rememberMe" />
-            <a class="form-control" href="/account/register">Регистрация</a>
-        </div>
-    </div>
+                let loginData = {
+                    userName: $("#userName").val(),
+                    password: $("#password").val(),
+                    rememberMe: $("#rememberMe").is(":checked")
+                };
 
-    <div>
-        <button type="submit" asp-controller="Account" asp-action="Login">Войти</button>
-    </div>
-</form>
+                $.ajax({
+                    url: "/Account/Login",
+                    type: "POST",
+                    data: loginData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
+                            $("#error-messages").html(errorHtml);
+                        }
+                    },
+                    error: function () {
+                        $("#error-messages").html("<p>Ошибка при входе. Попробуйте позже.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
