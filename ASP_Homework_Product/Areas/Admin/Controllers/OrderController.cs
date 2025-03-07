@@ -35,7 +35,7 @@ public class OrderController : Controller
     [HttpGet]
     public IActionResult GetOrderDetails(Guid orderId)
     {
-        var order = _ordersRepository.TryGetByIdAdmin(orderId); // Исправлено с TryGetById
+        var order = _ordersRepository.TryGetByIdAdmin(orderId);
         if (order == null)
         {
             return Json(new { success = false, error = "Заказ не найден" });

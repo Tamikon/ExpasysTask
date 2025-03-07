@@ -10,21 +10,33 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="/home/index">Главная</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/cart/index">Корзина (<span id="cart-count">0</span>)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/order/index">Заказы</a> <!-- Новая вкладка -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/account/login">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/admin/order/index">Администратор</a>
-                    </li>
-                    <li class="nav-item">
-                        <button id="logout-btn" class="btn btn-outline-danger">Выход</button>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/cart/index">Корзина (<span id="cart-count">0</span>)</a>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/admin/order/index">Администратор</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/order/index">Заказы</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <button id="logout-btn" class="btn btn-outline-danger">Выход</button>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/account/login">Вход</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

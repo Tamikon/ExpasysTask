@@ -74,6 +74,13 @@
                         console.log("Load response: ", response);
                         if (response.success) {
                             let order = response.order;
+                            let statusDisplay = {
+                                "Created": "Создан",
+                                "Processed": "Обработан",
+                                "Delivering": "В пути",
+                                "Delivered": "Доставлен",
+                                "Canceled": "Отменён"
+                            }[order.status] || order.status; // Перевод на русский
                             let orderHtml = `
                                 <table class="table">
                                     <tr><td>Дата и время</td><td>${new Date(order.createDateTime).toLocaleString()}</td></tr>
@@ -89,7 +96,7 @@
                                                 <option value="Processed" ${order.status === "Processed" ? "selected" : ""}>Обработан</option>
                                                 <option value="Delivering" ${order.status === "Delivering" ? "selected" : ""}>В пути</option>
                                                 <option value="Delivered" ${order.status === "Delivered" ? "selected" : ""}>Доставлен</option>
-                                                <option value="Canceled" ${order.status === "Canceled" ? "selected" : ""}>Отменен</option>
+                                                <option value="Canceled" ${order.status === "Canceled" ? "selected" : ""}>Отменён</option>
                                             </select>
                                         </td>
                                     </tr>

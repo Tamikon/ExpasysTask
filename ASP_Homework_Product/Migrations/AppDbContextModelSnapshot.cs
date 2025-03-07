@@ -167,6 +167,9 @@ namespace ASP_Homework_Product.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("text");
+
                     b.HasKey("Name");
 
                     b.ToTable("Users");

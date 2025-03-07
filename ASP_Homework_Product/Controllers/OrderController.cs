@@ -41,7 +41,7 @@ namespace ASP_Homework_Product.Controllers
         public IActionResult GetOrderDetails(Guid orderId)
         {
             var userId = User.Identity.Name;
-            var order = _ordersRepository.TryGetById(orderId, userId); // Исправлено с TryGetByIdAdmin
+            var order = _ordersRepository.TryGetById(orderId, userId);
             if (order == null)
             {
                 return Json(new { success = false, error = "Заказ не найден или вам не принадлежит" });

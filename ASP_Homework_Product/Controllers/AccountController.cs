@@ -75,7 +75,8 @@ namespace ASP_Homework_Product.Controllers
             {
                 Name = register.UserName,
                 Password = register.Password,
-                Phone = register.Phone
+                Phone = register.Phone,
+                Role = "User"
             };
             usersManager.Add(newUser);
             await AuthenticateUser(newUser);
@@ -94,7 +95,8 @@ namespace ASP_Homework_Product.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.MobilePhone, user.Phone ?? "")
+                new Claim(ClaimTypes.MobilePhone, user.Phone ?? ""),
+                new Claim(ClaimTypes.Role, user.Role ?? "User")
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

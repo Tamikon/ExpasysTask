@@ -9,5 +9,6 @@ namespace ASP_Homework_Product.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public bool IsBlocked { get; set; }
+        public string Role { get; set; }
     }
 }
