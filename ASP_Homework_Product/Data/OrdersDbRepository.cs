@@ -1,9 +1,9 @@
 ﻿using ASP_Homework_Product.Data;
 using ASP_Homework_Product.Models;
 using ASP_Homework_Product;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 public class OrdersDbRepository : IOrdersRepository
@@ -19,9 +19,30 @@ public class OrdersDbRepository : IOrdersRepository
     {
         _context.Orders.Add(order);
         _context.SaveChanges();
+        Console.WriteLine($"Order added: Id={order.Id}, ItemsCount={order.Items.Count}");
     }
 
-    public List<Order> GetAll()
+    public List<Order> GetAll(string userId)
+    {
+        return _context.Orders
+            .Include(o => o.User)
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Product) // Гарантируем загрузку Product
+            .Where(o => o.UserId == userId)
+            .ToList();
+    }
+
+    public Order TryGetById(Guid orderId, string userId)
+    {
+        return _context.Orders
+            .Include(o => o.User)
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+            .AsNoTracking()
+            .FirstOrDefault(o => o.Id == orderId && o.UserId == userId);
+    }
+
+    public List<Order> GetAllAdmin()
     {
         return _context.Orders
             .Include(o => o.User)
@@ -30,16 +51,14 @@ public class OrdersDbRepository : IOrdersRepository
             .ToList();
     }
 
-    public Order TryGetById(Guid orderId)
+    public Order TryGetByIdAdmin(Guid orderId)
     {
-        var order = _context.Orders
+        return _context.Orders
             .Include(o => o.User)
             .Include(o => o.Items)
             .ThenInclude(i => i.Product)
             .AsNoTracking()
             .FirstOrDefault(o => o.Id == orderId);
-        Console.WriteLine($"TryGetById: OrderId={orderId}, Status={order?.Status}");
-        return order;
     }
 
     public void UpdateStatus(Guid orderId, OrderStatus newStatus)
@@ -47,24 +66,8 @@ public class OrdersDbRepository : IOrdersRepository
         var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
         if (order != null)
         {
-            Console.WriteLine($"Before update: OrderId={orderId}, Status={order.Status}");
             order.Status = newStatus;
-            Console.WriteLine($"After update: OrderId={orderId}, Status={order.Status}");
-            _context.Entry(order).State = EntityState.Modified;
-            try
-            {
-                _context.SaveChanges();
-                Console.WriteLine($"Saved: OrderId={orderId}, Status={order.Status}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error saving: {ex.Message}");
-                throw;
-            }
-        }
-        else
-        {
-            Console.WriteLine($"Order not found: OrderId={orderId}");
+            _context.SaveChanges();
         }
     }
 }

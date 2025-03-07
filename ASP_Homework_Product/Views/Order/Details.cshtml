@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали заказа</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .order-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Детали заказа</h3>
+        <div id="order-details"></div>
+        <div id="error-message" style="color: red;"></div>
+        <a href="/order/index" class="btn">Назад к заказам</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let orderId = urlParams.get("orderId");
+
+            if (!orderId) {
+                $("#error-message").html("<p>Не указан ID заказа</p>");
+                return;
+            }
+
+            loadOrderDetails(orderId);
+
+            function loadOrderDetails(id) {
+                $.ajax({
+                    url: "/Order/GetOrderDetails",
+                    type: "GET",
+                    data: { orderId: id },
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Load response: ", response);
+                        if (response.success) {
+                            let order = response.order;
+                            let orderHtml = `
+                                <table class="table">
+                                    <tr><td>Дата и время</td><td>${new Date(order.createDateTime).toLocaleString()}</td></tr>
+                                    <tr><td>Адрес доставки</td><td>${order.user.address}</td></tr>
+                                    <tr><td>Получатель</td><td>${order.user.name}</td></tr>
+                                    <tr><td>Телефон</td><td>${order.user.phone}</td></tr>
+                                    <tr><td>Сумма заказа</td><td>${order.cost}</td></tr>
+                                    <tr><td>Статус заказа</td><td>${order.status}</td></tr>
+                                </table>
+                                <h4>Товары в заказе</h4>
+                                <div class="order-items">
+                            `;
+                            if (order.items && order.items.length > 0) {
+                                order.items.forEach(item => {
+                                    orderHtml += `
+                                        <div class="item-card">
+                                            <h5>${item.name}</h5>
+                                            <p>Количество: ${item.amount}</p>
+                                            <p>Цена: ${item.productCost} ₽</p>
+                                            <p>Сумма: ${item.itemCost} ₽</p>
+                                        </div>
+                                    `;
+                                });
+                            } else {
+                                orderHtml += `<p>Товары отсутствуют</p>`;
+                            }
+                            orderHtml += `</div>`;
+                            $("#order-details").html(orderHtml);
+                        } else {
+                            $("#error-message").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log("Load error: ", xhr.responseText);
+                        if (xhr.status === 401) {
+                            window.location.href = "/Account/Login";
+                        } else {
+                            $("#error-message").html("<p>Ошибка загрузки деталей заказа</p>");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

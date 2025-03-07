@@ -3,103 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оформление заказа</title>
+    <title>Мои заказы</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .form-control {
+        .table {
             width: 100%;
-            padding: 8px;
-            margin: 5px 0;
+            border-collapse: collapse;
         }
 
-        .text-danger {
-            color: red;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
 
         .btn {
-            background-color: #28a745;
+            background-color: #007bff;
             color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .row {
-            margin: 10px 0;
-        }
-
-        .text-center {
-            text-align: center;
+            padding: 5px 10px;
+            text-decoration: none;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="container text-center">
-        <h3>Оформление заказа</h3>
-        <div id="error-messages" class="text-danger"></div>
-
-        <div class="row">
-            <div class="col-6">
-                <label for="name">Введите ФИО</label><br />
-                <input id="name" class="form-control" type="text" name="name" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <label for="address">Введите адрес доставки</label><br />
-                <input id="address" class="form-control" type="text" name="address" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <label for="phone">Введите телефон</label><br />
-                <input id="phone" class="form-control" type="text" name="phone" />
-            </div>
-        </div>
-
-        <div>
-            <button id="buy-btn" class="btn">Оформить заказ</button>
-        </div>
-
-        <div id="success-message" style="display: none;">
-            <h3>Спасибо за покупку!</h3>
-            <a href="/home/index" class="btn">Вернуться к товарам</a>
-        </div>
-    </div>
+    <h3>Мои заказы</h3>
+    <div id="orders-container"></div>
+    <a href="/home/index" class="btn">Вернуться к товарам</a>
 
     <script>
         $(document).ready(function () {
-            $("#buy-btn").on("click", function (e) {
-                e.preventDefault();
+            loadOrders();
 
-                let orderData = {
-                    name: $("#name").val(),
-                    address: $("#address").val(),
-                    phone: $("#phone").val()
-                };
-
+            function loadOrders() {
                 $.ajax({
-                    url: "/Order/Buy",
-                    type: "POST",
-                    data: orderData,
+                    url: "/Order/GetOrders",
+                    type: "GET",
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#error-messages").hide();
-                            $(".container > *:not(#success-message)").hide();
-                            $("#success-message").show();
+                            let ordersHtml = `
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Сумма</th>
+                                            <th>Статус</th>
+                                            <th>Дата</th>
+                                            <th>Время</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            response.orders.forEach((order, index) => {
+                                ordersHtml += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${order.cost}</td>
+                                        <td>${order.status}</td>
+                                        <td>${new Date(order.createDateTime).toLocaleDateString()}</td>
+                                        <td>${new Date(order.createDateTime).toLocaleTimeString()}</td>
+                                        <td><a href="/order/details?orderId=${order.id}" class="btn">Подробнее</a></td>
+                                    </tr>
+                                `;
+                            });
+                            ordersHtml += `</tbody></table>`;
+                            $("#orders-container").html(ordersHtml);
                         } else {
-                            let errorHtml = response.errors.map(err => `<p>${err}</p>`).join("");
-                            $("#error-messages").html(errorHtml).show();
+                            $("#orders-container").html("<p>У вас пока нет заказов.</p>");
                         }
                     },
-                    error: function () {
-                        $("#error-messages").html("<p>Ошибка при оформлении заказа. Попробуйте позже.</p>").show();
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            window.location.href = "/Account/Login";
+                        } else {
+                            $("#orders-container").html("<p>Ошибка загрузки заказов</p>");
+                        }
                     }
                 });
-            });
+            }
         });
     </script>
 </body>

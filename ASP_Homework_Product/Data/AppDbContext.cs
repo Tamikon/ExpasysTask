@@ -31,7 +31,12 @@ namespace ASP_Homework_Product.Data
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
                 .WithMany()
-                .HasForeignKey(o => o.UserId);
+                .HasForeignKey(o => o.UserDeliveryInfoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.UserId)
+                .IsRequired();
 
             modelBuilder.Entity<Product>().HasData(
                 new Product("ASUS ROG Zephyrus Duo 16", "2560х1600, AMD Ryzen 9 7945HX 2.5 ГГц, NVIDIA GeForce RTX 4090", 499990, "/Images/image1.webp") { Id = 1 },
@@ -42,6 +47,8 @@ namespace ASP_Homework_Product.Data
             modelBuilder.Entity<UserAccount>().HasData(
                 new UserAccount { Name = "admin@gmail.com", Password = "admin", Phone = "1234567890" }
             );
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

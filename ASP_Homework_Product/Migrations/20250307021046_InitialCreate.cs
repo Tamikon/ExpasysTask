@@ -86,7 +86,8 @@ namespace ASP_Homework_Product.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserDeliveryInfoId = table.Column<Guid>(type: "uuid", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreateDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -94,8 +95,8 @@ namespace ASP_Homework_Product.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_UserDeliveryInfos_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Orders_UserDeliveryInfos_UserDeliveryInfoId",
+                        column: x => x.UserDeliveryInfoId,
                         principalTable: "UserDeliveryInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -164,9 +165,9 @@ namespace ASP_Homework_Product.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId",
+                name: "IX_Orders_UserDeliveryInfoId",
                 table: "Orders",
-                column: "UserId");
+                column: "UserDeliveryInfoId");
         }
 
         /// <inheritdoc />

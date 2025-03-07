@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace ASP_Homework_Product.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -12,20 +13,22 @@ namespace ASP_Homework_Product.Controllers
 
         public CartController(IProductRepository productRepository, ICartsRepository cartsRepository)
         {
-            this._productRepository = productRepository;
-            this._cartsRepository = cartsRepository;
+            _productRepository = productRepository;
+            _cartsRepository = cartsRepository;
         }
 
         public IActionResult Index()
         {
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            var userId = User.Identity.Name;
+            var cart = _cartsRepository.TryGetByUserId(userId);
             return View(cart);
         }
 
         [HttpGet]
         public IActionResult GetCart()
         {
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            var userId = User.Identity.Name;
+            var cart = _cartsRepository.TryGetByUserId(userId);
             if (cart == null)
             {
                 return Json(new { items = new List<CartItem>(), cost = 0, amount = 0 });
@@ -36,39 +39,39 @@ namespace ASP_Homework_Product.Controllers
         [HttpGet]
         public IActionResult GetCartCount()
         {
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            var userId = User.Identity.Name;
+            var cart = _cartsRepository.TryGetByUserId(userId);
             return Json(new { count = cart?.Amount ?? 0 });
         }
 
         [HttpPost]
         public IActionResult AddToCart(int productId)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Unauthorized();
-            }
+            var userId = User.Identity.Name;
             var product = _productRepository.TryGetById(productId);
             if (product == null)
             {
                 return NotFound();
             }
-            _cartsRepository.Add(product, Constants.UserId);
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            _cartsRepository.Add(product, userId);
+            var cart = _cartsRepository.TryGetByUserId(userId);
             return Json(new { success = true, cart = new { items = cart.Items, cost = cart.Cost } });
         }
 
         [HttpPost]
         public IActionResult DecreaseAmount(int productId)
         {
-            _cartsRepository.DecreaseAmount(productId, Constants.UserId);
-            var cart = _cartsRepository.TryGetByUserId(Constants.UserId);
+            var userId = User.Identity.Name;
+            _cartsRepository.DecreaseAmount(productId, userId);
+            var cart = _cartsRepository.TryGetByUserId(userId);
             return Json(new { success = true, cart = new { items = cart?.Items ?? new List<CartItem>(), cost = cart?.Cost ?? 0 } });
         }
 
         [HttpPost]
         public IActionResult Clear()
         {
-            _cartsRepository.Clear(Constants.UserId);
+            var userId = User.Identity.Name;
+            _cartsRepository.Clear(userId);
             return Json(new { success = true, cart = new { items = new List<CartItem>(), cost = 0 } });
         }
     }

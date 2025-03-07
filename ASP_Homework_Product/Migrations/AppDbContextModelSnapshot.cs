@@ -87,12 +87,16 @@ namespace ASP_Homework_Product.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("UserDeliveryInfoId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserDeliveryInfoId");
 
                     b.ToTable("Orders");
                 });
@@ -226,7 +230,7 @@ namespace ASP_Homework_Product.Migrations
                 {
                     b.HasOne("ASP_Homework_Product.Models.UserDeliveryInfo", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserDeliveryInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

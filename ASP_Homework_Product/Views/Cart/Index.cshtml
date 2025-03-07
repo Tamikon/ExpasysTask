@@ -40,13 +40,11 @@
     </style>
 </head>
 <body>
-    <h3>Корзина</h3>
-    <div id="cart-container">
-
-    </div>
+    <h3>Корзина (<span id="cart-count">0</span>)</h3>
+    <div id="cart-container"></div>
     <div id="cart-actions" class="text-center" style="display: none;">
         <a href="/home/index" class="btn btn-primary">Вернуться к списку товаров</a>
-        <a href="/order/index" class="btn btn-success">Оформить заказ</a>
+        <a href="/order/checkout" class="btn btn-success">Оформить заказ</a>
         <button id="clear-cart" class="btn btn-danger">Очистить корзину</button>
     </div>
 
@@ -60,6 +58,7 @@
                     type: "GET",
                     dataType: "json",
                     success: function (data) {
+                        console.log("Cart loaded: ", data);
                         let cartHtml = "";
                         if (!data.items || data.items.length === 0) {
                             cartHtml = "<h3>Корзина пустая</h3>";
@@ -102,9 +101,14 @@
                             $("#cart-actions").show();
                         }
                         $("#cart-container").html(cartHtml);
+                        $(document).trigger("cart-updated");
                     },
-                    error: function () {
-                        $("#cart-container").html("<h3>Ошибка загрузки корзины</h3>");
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            window.location.href = "/Account/Login";
+                        } else {
+                            $("#cart-container").html("<h3>Ошибка загрузки корзины</h3>");
+                        }
                     }
                 });
             }
