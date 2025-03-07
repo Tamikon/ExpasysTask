@@ -108,7 +108,8 @@ namespace ASP_Homework_Product.Controllers
                     ProductId = cartItem.ProductId,
                     Product = cartItem.Product,
                     Amount = cartItem.Amount,
-                    OrderId = order.Id
+                    OrderId = order.Id,
+                    CartId = null
                 };
                 order.Items.Add(newItem);
             }

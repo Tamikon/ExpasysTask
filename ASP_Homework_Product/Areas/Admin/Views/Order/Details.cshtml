@@ -29,6 +29,19 @@
             width: 100%;
             padding: 5px;
         }
+
+        .order-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -51,71 +64,66 @@
 
             loadOrderDetails(orderId);
 
-                function loadOrderDetails(id) {
-            $.ajax({
-                url: "/admin/order/getorderdetails",
-                type: "GET",
-                data: { orderId: id },
-                dataType: "json",
-                success: function (response) {
-                    console.log("Load response: ", response);
-                    if (response.success) {
-                        let order = response.order;
-                        let orderHtml = `
-                            <table class="table">
-                                <tr><td>Дата и время</td><td>${new Date(order.createDateTime).toLocaleString()}</td></tr>
-                                <tr><td>Адрес доставки</td><td>${order.user.address}</td></tr>
-                                <tr><td>Получатель</td><td>${order.user.name}</td></tr>
-                                <tr><td>Телефон</td><td>${order.user.phone}</td></tr>
-                                <tr><td>Сумма заказа</td><td>${order.cost}</td></tr>
-                                <tr>
-                                    <td>Статус заказа</td>
-                                    <td>
-                                        <select id="status" class="form-control">
-                                            <option value="Created" ${order.status === "Created" ? "selected" : ""}>Создан</option>
-                                            <option value="Processed" ${order.status === "Processed" ? "selected" : ""}>Обработан</option>
-                                            <option value="Delivering" ${order.status === "Delivering" ? "selected" : ""}>В пути</option>
-                                            <option value="Delivered" ${order.status === "Delivered" ? "selected" : ""}>Доставлен</option>
-                                            <option value="Canceled" ${order.status === "Canceled" ? "selected" : ""}>Отменен</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                            <h4>Товары в заказе</h4>
-                            <table class="table">
-                                <thead>
+            function loadOrderDetails(id) {
+                $.ajax({
+                    url: "/admin/order/getorderdetails",
+                    type: "GET",
+                    data: { orderId: id },
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Load response: ", response);
+                        if (response.success) {
+                            let order = response.order;
+                            let orderHtml = `
+                                <table class="table">
+                                    <tr><td>Дата и время</td><td>${new Date(order.createDateTime).toLocaleString()}</td></tr>
+                                    <tr><td>Адрес доставки</td><td>${order.user.address}</td></tr>
+                                    <tr><td>Получатель</td><td>${order.user.name}</td></tr>
+                                    <tr><td>Телефон</td><td>${order.user.phone}</td></tr>
+                                    <tr><td>Сумма заказа</td><td>${order.cost}</td></tr>
                                     <tr>
-                                        <th>Название</th>
-                                        <th>Количество</th>
-                                        <th>Цена</th>
-                                        <th>Сумма</th>
+                                        <td>Статус заказа</td>
+                                        <td>
+                                            <select id="status" class="form-control">
+                                                <option value="Created" ${order.status === "Created" ? "selected" : ""}>Создан</option>
+                                                <option value="Processed" ${order.status === "Processed" ? "selected" : ""}>Обработан</option>
+                                                <option value="Delivering" ${order.status === "Delivering" ? "selected" : ""}>В пути</option>
+                                                <option value="Delivered" ${order.status === "Delivered" ? "selected" : ""}>Доставлен</option>
+                                                <option value="Canceled" ${order.status === "Canceled" ? "selected" : ""}>Отменен</option>
+                                            </select>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                        `;
-                        order.items.forEach(item => {
-                            orderHtml += `
-                                <tr>
-                                    <td>${item.name}</td>
-                                    <td>${item.amount}</td>
-                                    <td>${item.productCost}</td> <!-- Используем productCost -->
-                                    <td>${item.itemCost}</td> <!-- Используем itemCost -->
-                                </tr>
+                                </table>
+                                <h4>Товары в заказе</h4>
+                                <div class="order-items">
                             `;
-                        });
-                        orderHtml += `</tbody></table>`;
-                        $("#order-details").html(orderHtml);
-                        $("#update-status").show();
-                    } else {
-                        $("#error-message").html(`<p>${response.error}</p>`);
+                            if (order.items && order.items.length > 0) {
+                                order.items.forEach(item => {
+                                    orderHtml += `
+                                        <div class="item-card">
+                                            <h5>${item.name}</h5>
+                                            <p>Количество: ${item.amount}</p>
+                                            <p>Цена: ${item.productCost} ₽</p>
+                                            <p>Сумма: ${item.itemCost} ₽</p>
+                                        </div>
+                                    `;
+                                });
+                            } else {
+                                orderHtml += `<p>Товары отсутствуют</p>`;
+                            }
+                            orderHtml += `</div>`;
+                            $("#order-details").html(orderHtml);
+                            $("#update-status").show();
+                        } else {
+                            $("#error-message").html(`<p>${response.error}</p>`);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log("Load error: ", xhr.responseText);
+                        $("#error-message").html("<p>Ошибка загрузки деталей заказа</p>");
                     }
-                },
-                error: function (xhr) {
-                    console.log("Load error: ", xhr.responseText);
-                    $("#error-message").html("<p>Ошибка загрузки деталей заказа</p>");
-                }
-            });
-        }
+                });
+            }
 
             $("#update-status").on("click", function () {
                 let status = $("#status").val();
