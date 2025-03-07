@@ -1,46 +1,23 @@
-﻿<!DOCTYPE html>
+﻿@model ASP_Homework_Product.Models.UserAccount
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование прав</title>
+    <title>Изменение прав</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-        }
-
-        .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .row {
-            margin: 10px 0;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <h3 id="title"></h3>
-        <div id="error-messages" style="color: red;"></div>
-
-        <input id="name" type="hidden" />
-        <div class="row">
-            <label>Статус пользователя:</label>
-            <select id="isBlocked" class="form-control">
-                <option value="false">Активен</option>
-                <option value="true">Заблокирован</option>
-            </select>
-        </div>
-        <div>
-            <button id="save-btn" class="btn">Сохранить</button>
-        </div>
+        <h3>Изменение прав пользователя</h3>
+        <div id="user-rights"></div>
+        <select id="role" class="form-control">
+            <option value="Blocked">Заблокирован</option>
+            <option value="Customer">Покупатель</option>
+            <option value="Admin">Администратор</option>
+        </select>
+        <button id="save-btn" class="btn btn-primary">Сохранить</button>
+        <div id="error-message" style="color: red;"></div>
     </div>
 
     <script>
@@ -49,7 +26,7 @@
             let name = urlParams.get("name");
 
             if (!name) {
-                $("#error-messages").html("<p>Не указан логин пользователя</p>");
+                $("#error-message").html("<p>Не указан пользователь</p>");
                 return;
             }
 
@@ -57,46 +34,39 @@
 
             function loadUserRights(name) {
                 $.ajax({
-                    url: "/admin/user/getuserrights",
+                    url: "/admin/user/GetUserRights",
                     type: "GET",
                     data: { name: name },
-                    dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            $("#title").text(`Редактирование прав доступа для ${response.user.name}`);
-                            $("#name").val(response.user.name);
-                            $("#isBlocked").val(response.user.isBlocked.toString());
+                            $("#role").val(response.user.role);
+                            $("#user-rights").html(`<p>Пользователь: ${response.user.name}</p>`);
                         } else {
-                            $("#error-messages").html(`<p>${response.error}</p>`);
+                            $("#error-message").html(`<p>${response.error}</p>`);
                         }
                     },
                     error: function () {
-                        $("#error-messages").html("<p>Ошибка загрузки прав</p>");
+                        $("#error-message").html("<p>Ошибка загрузки данных</p>");
                     }
                 });
             }
 
-            $("#save-btn").on("click", function (e) {
-                e.preventDefault();
-                let rightsData = {
-                    name: $("#name").val(),
-                    isBlocked: $("#isBlocked").val() === "true"
-                };
+            $("#save-btn").on("click", function () {
+                let role = $("#role").val();
                 $.ajax({
-                    url: "/admin/user/editrights",
+                    url: "/admin/user/EditRights",
                     type: "POST",
-                    data: rightsData,
-                    dataType: "json",
+                    data: { name: name, role: role },
                     success: function (response) {
                         if (response.success) {
                             alert("Права обновлены!");
-                            window.location.href = "/admin/user";
+                            loadUserRights(name);
                         } else {
-                            $("#error-messages").html(`<p>${response.error}</p>`);
+                            $("#error-message").html(`<p>${response.error}</p>`);
                         }
                     },
                     error: function () {
-                        $("#error-messages").html("<p>Ошибка сохранения прав</p>");
+                        $("#error-message").html("<p>Ошибка сохранения</p>");
                     }
                 });
             });

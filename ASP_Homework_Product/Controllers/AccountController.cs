@@ -38,7 +38,7 @@ namespace ASP_Homework_Product.Controllers
                 return Json(new { success = false, errors = new[] { "Такого пользователя не существует" } });
             }
 
-            if (userAccount.IsBlocked)
+            if (userAccount.Role == UserRole.Blocked) // Заменяем IsBlocked
             {
                 return Json(new { success = false, errors = new[] { "Ваш аккаунт заблокирован" } });
             }
@@ -76,7 +76,7 @@ namespace ASP_Homework_Product.Controllers
                 Name = register.UserName,
                 Password = register.Password,
                 Phone = register.Phone,
-                Role = "User"
+                Role = UserRole.Customer // Новые пользователи — Customer
             };
             usersManager.Add(newUser);
             await AuthenticateUser(newUser);
@@ -96,7 +96,7 @@ namespace ASP_Homework_Product.Controllers
             {
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.MobilePhone, user.Phone ?? ""),
-                new Claim(ClaimTypes.Role, user.Role ?? "User")
+                new Claim(ClaimTypes.Role, user.Role.ToString()) // Role как строка
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

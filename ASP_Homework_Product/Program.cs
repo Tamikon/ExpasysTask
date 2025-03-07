@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using ASP_Homework_Product.Data;
 using Microsoft.AspNetCore.Authentication;
+using ASP_Homework_Product.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             var usersManager = context.HttpContext.RequestServices.GetRequiredService<IUsersManager>();
             var userName = context.Principal.Identity.Name;
             var user = usersManager.TryGetByName(userName);
-            if (user != null && user.IsBlocked)
+            if (user != null && user.Role == UserRole.Blocked)
             {
                 context.RejectPrincipal();
                 await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

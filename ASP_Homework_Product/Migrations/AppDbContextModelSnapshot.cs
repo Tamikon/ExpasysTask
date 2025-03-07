@@ -158,17 +158,14 @@ namespace ASP_Homework_Product.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("text");
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.HasKey("Name");
 
@@ -178,9 +175,9 @@ namespace ASP_Homework_Product.Migrations
                         new
                         {
                             Name = "admin@gmail.com",
-                            IsBlocked = false,
                             Password = "admin",
-                            Phone = "1234567890"
+                            Phone = "1234567890",
+                            Role = 0
                         });
                 });
 

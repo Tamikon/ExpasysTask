@@ -1283,3 +1283,8 @@ POSITION: 58
     File: parse_relation.c
     Line: 3657
     Routine: errorMissingColumn
+2025-03-07 08:25:07 [ERR] Failed executing DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Users" ALTER COLUMN "Role" TYPE integer;
+UPDATE "Users" SET "Role" = 0 WHERE "Role" IS NULL;
+ALTER TABLE "Users" ALTER COLUMN "Role" SET NOT NULL;
+ALTER TABLE "Users" ALTER COLUMN "Role" SET DEFAULT 0;
