@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ASP_Homework_Product.Areas.Admin.Models;
 using ASP_Homework_Product.Models;
-using ASP_Homework_Product.Areas.Admin.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_Homework_Product.Data
 {
@@ -36,7 +36,8 @@ namespace ASP_Homework_Product.Data
             );
 
             modelBuilder.Entity<UserAccount>().HasData(
-                new UserAccount { Name = "admin@gmail.com", Password = "admin", Phone = "1234567890" }
+                new UserAccount { Name = "admin@gmail.com", Password = "admin", Phone = "1234567890", Role = UserRole.Admin },
+                new UserAccount { Name = "user@gmail.com", Password = "user", Phone = "0987654321", Role = UserRole.Customer }
             );
 
             base.OnModelCreating(modelBuilder);

@@ -1,4 +1,7 @@
 using ASP_Homework_Product;
+using ASP_Homework_Product.Data;
+using ASP_Homework_Product.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -6,12 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using ASP_Homework_Product.Data;
-using Microsoft.AspNetCore.Authentication;
-using ASP_Homework_Product.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Настройка Serilog
 builder.Host.UseSerilog((context, loggerConfiguration) =>
 {
     loggerConfiguration
@@ -20,16 +21,18 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
         .Enrich.WithProperty("ApplicationName", "Online Shop");
 });
 
+// Регистрация DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Регистрация репозиториев и сервисов
 builder.Services.AddScoped<IOrdersRepository, OrdersDbRepository>();
 builder.Services.AddScoped<IProductRepository, ProductsDbRepository>();
 builder.Services.AddScoped<ICartsRepository, CartsDbRepository>();
 builder.Services.AddScoped<IRolesRepository, RolesDbRepository>();
 builder.Services.AddScoped<IUsersManager, UsersDbManager>();
 
-// куки
+// Настройка аутентификации
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -57,6 +60,14 @@ builder.Services.AddControllersWithViews()
 
 var app = builder.Build();
 
+// Автоматическое создание базы данных
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.EnsureCreated(); // Создаёт базу и таблицы при запуске
+}
+
+// Настройка middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -69,14 +80,12 @@ else
 app.UseSerilogRequestLogging();
 app.UseStaticFiles();
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "MyArea",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
